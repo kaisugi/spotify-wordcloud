@@ -1,10 +1,11 @@
 from flask import *
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
-from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from wordcloud import WordCloud
+import tweepy
 import requests
 
 from os import environ, path
+import logging
 import hashlib
 
 
@@ -16,17 +17,12 @@ app.config["SPOTIFY_OAUTH_CLIENT_SECRET"] = environ.get("GITHUB_OAUTH_CLIENT_SEC
 spotify_bp = make_spotify_blueprint(scope="user-top-read")
 app.register_blueprint(spotify_bp, url_prefix="/login")
 
-app.config["TWITTER_OAUTH_CLIENT_KEY"] = environ.get("TWITTER_OAUTH_CLIENT_KEY")
-app.config["TWITTER_OAUTH_CLIENT_SECRET"] = environ.get("TWITTER_OAUTH_CLIENT_SECRET")
-twitter_bp = make_twitter_blueprint()
-app.register_blueprint(twitter_bp, url_prefix="/login")
-
 
 
 @app.route("/")
 def index():
     if spotify.authorized:
-        if twitter.authorized:
+        if 'oauth_verifier' in session:
             return render_template('authorized.html', twitter_authorized=True)
         else:
             return render_template('authorized.html', twitter_authorized=False)
@@ -45,9 +41,24 @@ def logout():
     return redirect("/")
 
 
-@app.route("/twitter_login")
-def twitter_login():
-    return redirect(url_for("twitter.login"))
+@app.route('/twitter_auth')
+def twitter_auth():
+    redirect_url = ""
+    auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'http://localhost:5000/callback')
+
+    try:
+        redirect_url = auth.get_authorization_url()
+        session['request_token'] = auth.request_token
+    except tweepy.TweepError as e:
+        logging.error(str(e))
+
+    return redirect(redirect_url)
+
+
+@app.route("/callback")
+def callback():
+    session['oauth_verifier'] = request.args.get('oauth_verifier')
+    return redirect("/")
 
 
 @app.route('/generate')
@@ -81,7 +92,7 @@ def generate():
             return send_file(f"/tmp/{ha}.png", mimetype='image/png')
 
         except Exception as e:
-            print(e)
+            logging.error(str(e))
             return Response(status=400)
 
     else:
@@ -90,46 +101,50 @@ def generate():
 
 @app.route('/tweet')
 def tweet():
-    if twitter.authorized:
-        if spotify.authorized:
-            try:
-                text = ""
+    if spotify.authorized:
+        try:
+            text = ""
 
-                if "spotify_wordcloud_text" not in session:
-                    data = spotify.get("/v1/me/top/artists?limit=50").json()
+            if "spotify_wordcloud_text" not in session:
+                data = spotify.get("/v1/me/top/artists?limit=50").json()
 
-                    for i, item in enumerate(data['items']):
-                        for k in range((50-i)//10):
-                            text += item['name']
-                            text += " "
+                for i, item in enumerate(data['items']):
+                    for k in range((50-i)//10):
+                        text += item['name']
+                        text += " "
 
-                    session["spotify_wordcloud_text"] = text  # save text
-                    ha = hashlib.md5(text.encode('utf-8')).hexdigest()
-                    session["spotify_wordcloud_hash"] = ha  # save hash
+                session["spotify_wordcloud_text"] = text  # save text
+                ha = hashlib.md5(text.encode('utf-8')).hexdigest()
+                session["spotify_wordcloud_hash"] = ha  # save hash
 
-                text = session["spotify_wordcloud_text"]
-                ha = session["spotify_wordcloud_hash"]
+            text = session["spotify_wordcloud_text"]
+            ha = session["spotify_wordcloud_hash"]
 
-                if not path.exists(f"/tmp/{ha}.png"):
-                    wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
-                    image = wc.to_image()
-                    image.save(f"/tmp/{ha}.png", format='png', optimize=True)
+            if not path.exists(f"/tmp/{ha}.png"):
+                wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
+                image = wc.to_image()
+                image.save(f"/tmp/{ha}.png", format='png', optimize=True)
 
+            # Upload Media to Twitter
+            auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'http://localhost:5000/callback')
+            token = session.pop('request_token', None)
+            auth.request_token = token
+            verifier = session.pop('oauth_verifier', None)
+            auth.get_access_token(verifier)
 
-                res = twitter.post("https://api.twitter.com/1.1/statuses/update.json?status=Gyazoで画像付きツイートにしようかな。").json()
-                print(res)
+            api = tweepy.API(auth)
 
-                
-                return "Tweet success"
+            filename = f"/tmp/{ha}.png"
+            res = api.media_upload(filename)
+            api.update_status("Spotifyで自己紹介！\n#Spotify_Wordcloud\nhttps://spotify-wordcloud.herokuapp.com/", media_ids=[res.media_id])
+            
+            return "Tweet success"
 
-            except Exception as e:
-                print(e)
-                return Response(status=400)
-        else:
-            return Response(status=401)
-
+        except Exception as e:
+            logging.error(str(e))
+            return Response(status=400)
     else:
-        return redirect(url_for("twitter.login"))
+        return Response(status=401)
 
 
 if __name__ == '__main__':

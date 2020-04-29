@@ -36,13 +36,10 @@
         <div class="border border-light p-3 mb-4 tweet" style="display: none;">
           
           <div class="text-center">
-            <button type="button" class="btn btn-primary"><a onclick="generate()"><h3>違う画像を作る</h3></a></button>
-          </div>
-          <div class="text-center">
             {% if twitter_authorized %}
               <button type="button" class="btn btn-primary"><a href="/tweet"><h3>ツイートする</h3></a></button>
             {% else %}
-              <button type="button" class="btn btn-primary"><a href="/twitter_login"><h3>Twitter にログインする</h3></a></button>
+              <button type="button" class="btn btn-primary"><a href="/twitter_auth"><h3>Twitter にログインしてツイートする</h3></a></button>
             {% endif %}
           </div>
         
