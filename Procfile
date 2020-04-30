@@ -1,1 +1,1 @@
-web: GUNICORN_CMD_ARGS="--limit-request-line 8190" gunicorn app:app
+web: gunicorn app:app
