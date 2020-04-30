@@ -1,5 +1,7 @@
 Flask==1.1.2
 Flask-Dance==3.0.0
+Flask-SeaSurf==0.2.2
+flask-talisman==0.7.0
 gunicorn==20.0.4
 tweepy==3.8.0
 wordcloud==1.6.0

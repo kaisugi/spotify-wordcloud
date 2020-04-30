@@ -1,6 +1,7 @@
 from flask import *
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
 from flask_talisman import Talisman
+from flask_seasurf import SeaSurf
 from wordcloud import WordCloud
 import tweepy
 
@@ -11,6 +12,7 @@ import hashlib
 
 app = Flask(__name__)
 Talisman(app)
+csrf = SeaSurf(app)
 
 app.secret_key = environ.get("SECRET_KEY")
 app.config["SPOTIFY_OAUTH_CLIENT_ID"] = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
