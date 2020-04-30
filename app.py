@@ -51,7 +51,7 @@ def logout():
 @app.route('/twitter_auth')
 def twitter_auth():
     redirect_url = ""
-    auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'http://localhost:5000/callback')
+    auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'https://spotify-wordcloud.herokuapp.com/callback')
 
     try:
         redirect_url = auth.get_authorization_url()
@@ -133,7 +133,7 @@ def tweet():
                 image.save(f"/tmp/{ha}.png", format='png', optimize=True)
 
             # Upload Media to Twitter
-            auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'http://localhost:5000/callback')
+            auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'https://spotify-wordcloud.herokuapp.com/callback')
             token = session.pop('request_token', None)
             auth.request_token = token
             verifier = session.pop('oauth_verifier', None)
