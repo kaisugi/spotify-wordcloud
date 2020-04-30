@@ -1,3 +1,4 @@
 Flask==1.1.2
+Flask-Dance==3.0.0
 gunicorn==20.0.4
-wordcloud==1.6.0
+tweepy==3.8.0

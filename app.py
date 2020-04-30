@@ -2,7 +2,6 @@ from flask import *
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
 from wordcloud import WordCloud
 import tweepy
-import requests
 
 from os import environ, path
 import logging
@@ -138,11 +137,11 @@ def tweet():
             res = api.media_upload(filename)
             api.update_status("Spotifyで自己紹介！\n#Spotify_Wordcloud\nhttps://spotify-wordcloud.herokuapp.com/", media_ids=[res.media_id])
             
-            return "Tweet success"
+            return render_template('tweet_success.html')
 
         except Exception as e:
             logging.error(str(e))
-            return Response(status=400)
+            return render_template('tweet_failure.html')
     else:
         return Response(status=401)
 
