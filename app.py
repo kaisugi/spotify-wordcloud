@@ -11,8 +11,12 @@ import hashlib
 
 
 app = Flask(__name__)
-Talisman(app)
 csrf = SeaSurf(app)
+#
+talisman = Talisman(
+    app,
+    content_security_policy="default-src https:; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline'"
+)
 
 app.secret_key = environ.get("SECRET_KEY")
 app.config["SPOTIFY_OAUTH_CLIENT_ID"] = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
