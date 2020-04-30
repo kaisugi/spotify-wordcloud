@@ -18,6 +18,9 @@ talisman = Talisman(
     content_security_policy="default-src https: self; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src * blob:;"
 )
 
+app.config["CSRF_COOKIE_SECURE"] = True
+app.config["CSRT_COOKIE_HTTPONLY"] = True
+
 app.secret_key = environ.get("SECRET_KEY")
 app.config["SPOTIFY_OAUTH_CLIENT_ID"] = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
 app.config["SPOTIFY_OAUTH_CLIENT_SECRET"] = environ.get("SPOTIFY_OAUTH_CLIENT_SECRET")
