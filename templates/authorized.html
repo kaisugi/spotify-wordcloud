@@ -89,7 +89,7 @@
           .then(myBlob => {
             var objectURL = URL.createObjectURL(myBlob);
             myImage.src = objectURL;
-            result.innerHTML = "ワードクラウドが作成されました！"
+            result.innerHTML = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）"
             tweetArea.setAttribute("style", "display: block;")
           })
           .catch(e => {
