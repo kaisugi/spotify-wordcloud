@@ -184,10 +184,10 @@ def tweet():
             res = api.media_upload(filename)
             api.update_status("Spotifyで自己紹介！\n#Spotify_WordCloud\nhttps://spotify-wordcloud.herokuapp.com/", media_ids=[res.media_id])
             
-            return render_template('tweet_success.html')
+            return render_template('result.html', result="ツイートに成功しました。")
 
         except Exception as e:
             logging.error(str(e))
-            return render_template('tweet_failure.html')
+            return render_template('result.html', result="ツイートに失敗しました。")
     else:
         return Response(status=401)
