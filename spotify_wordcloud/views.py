@@ -9,8 +9,8 @@ from datetime import date, datetime
 import logging
 import hashlib
 
-
-from spotify_wordcloud import app
+from spotify_wordcloud import app, db
+from .models import Pictures
 
 s3_client = boto3.client('s3', region_name='ap-northeast-1')
 
@@ -130,7 +130,13 @@ def save():
             s3_client.upload_file(f"/tmp/{ha}.png", "spotify-wordcloud", f"{s3_filename}.png", ExtraArgs={'ACL': 'public-read', 'ContentType': 'image/png'})
 
 
-            return "success"
+            # save to DB
+            profile = spotify.get("v1/me").json()
+            record = Pictures(user_id=profile["id"], file_name=f"{s3_filename}.png")
+            db.session.add(record)
+            db.session.commit()
+
+            return render_template('result.html', result="画像の保存に成功しました。")
 
 
         except Exception as e:
