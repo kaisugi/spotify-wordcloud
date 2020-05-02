@@ -1,7 +1,5 @@
 from flask import *
-from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
-from flask_talisman import Talisman
-from flask_seasurf import SeaSurf
+from flask_dance.contrib.spotify import spotify
 from wordcloud import WordCloud
 import tweepy
 import boto3
@@ -12,22 +10,7 @@ import logging
 import hashlib
 
 
-app = Flask(__name__)
-csrf = SeaSurf(app)
-
-talisman = Talisman(
-    app,
-    content_security_policy="default-src https: self; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src * blob:;"
-)
-
-app.config["CSRF_COOKIE_SECURE"] = True
-app.config["CSRT_COOKIE_HTTPONLY"] = True
-
-app.secret_key = environ.get("SECRET_KEY")
-app.config["SPOTIFY_OAUTH_CLIENT_ID"] = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
-app.config["SPOTIFY_OAUTH_CLIENT_SECRET"] = environ.get("SPOTIFY_OAUTH_CLIENT_SECRET")
-spotify_bp = make_spotify_blueprint(scope="user-top-read")
-app.register_blueprint(spotify_bp, url_prefix="/login")
+from spotify_wordcloud import app
 
 s3_client = boto3.client('s3', 
     aws_access_key_id=environ.get("AWS_ACCESS_KEY_ID"),
@@ -208,7 +191,3 @@ def tweet():
             return render_template('tweet_failure.html')
     else:
         return Response(status=401)
-
-
-if __name__ == '__main__':
-    app.run()

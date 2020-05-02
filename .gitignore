@@ -1,3 +1,4 @@
 *.png
 .venv/
 !static/images/*
+__pycache__
