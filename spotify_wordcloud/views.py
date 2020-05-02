@@ -4,7 +4,7 @@ from wordcloud import WordCloud
 import tweepy
 import boto3
 
-from os import environ, path
+from os import path
 from datetime import date, datetime
 import logging
 import hashlib
@@ -12,11 +12,7 @@ import hashlib
 
 from spotify_wordcloud import app
 
-s3_client = boto3.client('s3', 
-    aws_access_key_id=environ.get("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=environ.get("AWS_SECRET_ACCESS_KEY"),
-    region_name='ap-northeast-1',
-)
+s3_client = boto3.client('s3', region_name='ap-northeast-1')
 
 
 
@@ -45,7 +41,7 @@ def logout():
 @app.route('/twitter_auth')
 def twitter_auth():
     redirect_url = ""
-    auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'https://spotify-wordcloud.herokuapp.com/callback')
+    auth = tweepy.OAuthHandler(app.config["TWITTER_API_KEY"], app.config["TWITTER_API_SECRET"], 'https://spotify-wordcloud.herokuapp.com/callback')
 
     try:
         redirect_url = auth.get_authorization_url()
@@ -172,7 +168,7 @@ def tweet():
                 image.save(f"/tmp/{ha}.png", format='png', optimize=True)
 
             # Upload Media to Twitter
-            auth = tweepy.OAuthHandler(environ.get("TWITTER_API_KEY"), environ.get("TWITTER_API_SECRET"), 'https://spotify-wordcloud.herokuapp.com/callback')
+            auth = tweepy.OAuthHandler(app.config["TWITTER_API_KEY"], app.config["TWITTER_API_SECRET"], 'https://spotify-wordcloud.herokuapp.com/callback')
             token = session.pop('request_token', None)
             auth.request_token = token
             verifier = session.pop('oauth_verifier', None)
