@@ -4,8 +4,10 @@ from flask_talisman import Talisman
 from flask_seasurf import SeaSurf
 from wordcloud import WordCloud
 import tweepy
+import boto3
 
 from os import environ, path
+from datetime import date, datetime
 import logging
 import hashlib
 
@@ -26,6 +28,12 @@ app.config["SPOTIFY_OAUTH_CLIENT_ID"] = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
 app.config["SPOTIFY_OAUTH_CLIENT_SECRET"] = environ.get("SPOTIFY_OAUTH_CLIENT_SECRET")
 spotify_bp = make_spotify_blueprint(scope="user-top-read")
 app.register_blueprint(spotify_bp, url_prefix="/login")
+
+s3_client = boto3.client('s3', 
+    aws_access_key_id=environ.get("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=environ.get("AWS_SECRET_ACCESS_KEY"),
+    region_name='ap-northeast-1',
+)
 
 
 
@@ -107,6 +115,51 @@ def generate():
 
     else:
         return Response(status=401)
+
+
+@app.route('/save')
+def save():
+    if spotify.authorized:
+        try:
+            text = ""
+
+            if "spotify_wordcloud_text" not in session:
+                data = spotify.get("/v1/me/top/artists?limit=50").json()
+
+                for i, item in enumerate(data['items']):
+                    for k in range((50-i)//10):
+                        text += item['name']
+                        text += " "
+
+                session["spotify_wordcloud_text"] = text  # save text
+                ha = hashlib.md5(text.encode('utf-8')).hexdigest()
+                session["spotify_wordcloud_hash"] = ha  # save hash
+
+            text = session["spotify_wordcloud_text"]
+            ha = session["spotify_wordcloud_hash"]
+
+            if not path.exists(f"/tmp/{ha}.png"):
+                wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
+                image = wc.to_image()
+                image.save(f"/tmp/{ha}.png", format='png', optimize=True)
+
+            # set filename from timestamp
+            t_today = datetime.now()
+            s_today = t_today.strftime('%Y/%m/%d %H:%M*%S')
+            s3_filename = hashlib.md5(s_today.encode('utf-8')).hexdigest()
+
+            s3_client.upload_file(f"/tmp/{ha}.png", "spotify-wordcloud", f"{s3_filename}.png", ExtraArgs={'ACL': 'public-read', 'ContentType': 'image/png'})
+
+
+            return "success"
+
+
+        except Exception as e:
+            logging.error(str(e))
+            return Response(status=400)
+
+    else:
+        return Response(status=401)    
 
 
 @app.route('/tweet')
