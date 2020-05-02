@@ -141,7 +141,7 @@ def save():
 
         except Exception as e:
             logging.error(str(e))
-            return Response(status=400)
+            return render_template('result.html', result="画像の保存に失敗しました。")
 
     else:
         return Response(status=401)    
