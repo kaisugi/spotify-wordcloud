@@ -193,3 +193,15 @@ def tweet():
             return render_template('result.html', result="ツイートに失敗しました。")
     else:
         return Response(status=401)
+
+
+@app.route('/history')
+def history():
+    if spotify.authorized:
+        profile = spotify.get("v1/me").json()
+        pictures = db.session.query(Pictures).filter(Pictures.user_id==profile["id"]).order_by(Pictures.created_at.desc()).all()
+
+        return render_template('history.html', pictures=pictures)
+
+    else:
+        return Response(status=401)

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body %}
+<br/>
+<div class="row">
+{% for item in pictures %}
+  {% set imgsrc = "https://spotify-wordcloud.s3-ap-northeast-1.amazonaws.com/" + item.file_name %}
+  <div class="col-md-6">
+    <div class="card mb-4 shadow-sm">
+      <img src={{imgsrc}} width="100%">
+      <div class="card-body">
+        <p class="card-text">{{ item.created_at.strftime('%Y年%m月%d日 %H:%M:%S') }} 作成</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+<div class="border border-light p-3 mb-4">
+
+  <div class="text-center">
+    <button type="button" class="btn btn-primary"><a href="/"><h3>戻る</h3></a></button>
+  </div>
+
+</div>
+<br/>
+<br/>
+<br/>
+{% endblock %}
