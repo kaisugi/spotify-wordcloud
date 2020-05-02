@@ -200,8 +200,24 @@ def history():
     if spotify.authorized:
         profile = spotify.get("v1/me").json()
         pictures = db.session.query(Pictures).filter(Pictures.user_id==profile["id"]).order_by(Pictures.created_at.desc()).all()
+        db.session.commit()
 
         return render_template('history.html', pictures=pictures)
+
+    else:
+        return Response(status=401)
+
+
+@app.route('/history/<string:file_hash>', methods=['POST'])
+def delete_picture(file_hash):
+    if spotify.authorized:
+        if request.form.get('_method') == 'DELETE':
+            profile = spotify.get("v1/me").json()
+            pictures = db.session.query(Pictures).filter(Pictures.file_name==(file_hash+".png"))\
+                .filter(Pictures.user_id==profile["id"]).delete()
+            db.session.commit()
+
+            return redirect("/history")
 
     else:
         return Response(status=401)
