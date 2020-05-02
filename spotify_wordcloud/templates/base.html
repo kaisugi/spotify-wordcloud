@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+
+    <meta name="description" content="Spotify Wordcloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです。Spotify Wordcloud を使って、好きな音楽で自己紹介してみませんか？">
+    <meta name="google-site-verification" content="qVgV0YPc7NbFDXda1-dZL-17vRZm033A_7CbHyG_G8U" />
+    <title>Spotify WordCloud</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container" style="padding-left: 3px;">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Spotify WordCloud</a>
+        </div>
+      </div>
+    </nav>
+    <div class="main">
+      <div class="container">
+        {% block body %}
+        {% endblock %}
+        <div class="border border-light p-3 mb-4">
+  
+          <div class="text-center">
+            <button type="button" class="btn btn-primary"><a href="https://github.com/7ma7X/spotify-wordcloud/issues">バグ報告等はこちらから</a></button>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright text-center py-3"><p class="text-muted">@ 2020 HelloRusk</p>
+    </div>
+  </body>
+</html>

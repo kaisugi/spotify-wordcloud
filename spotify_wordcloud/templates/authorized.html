@@ -1,113 +1,37 @@
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
+{% block body %}
+<br>
+<div class="result">
+  ワードクラウドを作成中....
+</div>
+<br>
+<img class="generated" width="100%"/>
 
-    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
-    <link href="/static/css/main.css" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<br>
+<br>
 
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<div class="border border-light p-3 mb-4 tweet" style="display: none;">
+  
+  <div class="text-center">
+    {% if twitter_authorized %}
+      <button type="button" class="btn btn-primary"><a href="/tweet"><h3 style="color:blue">ツイートする！</h3></a></button>
+    {% else %}
+      <button type="button" class="btn btn-primary"><a href="/twitter_auth"><h3>Twitter と連携する</h3></a></button>
+      <br>
+      画像をツイートするには Twitter との連携が必要です。
+    {% endif %}
+  </div>
 
+</div>
+<br/>
+<br/>
 
-    <meta name="description" content="Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです。Spotify WordCloud を使って、好きな音楽で自己紹介してみませんか？">
-    <title>Spotify WordCloud</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-      <div class="container" style="padding-left: 3px;">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Spotify WordCloud</a>
-        </div>
-      </div>
-    </nav>
-    <div class="main">
-      <div class="container">
-        <br>
-        <div class="result">
-          ワードクラウドを作成中....
-        </div>
-        <br>
-        <img class="generated" width="100%"/>
+<div class="border border-light p-3 mb-4">
 
-        <br>
-        <br>
+  <div class="text-center">
+    <button type="button" class="btn btn-primary"><a onclick="logout()"><h4>ログアウト</h4></a></button>
+  </div>
 
-        <div class="border border-light p-3 mb-4 tweet" style="display: none;">
-          
-          <div class="text-center">
-            {% if twitter_authorized %}
-              <button type="button" class="btn btn-primary"><a href="/tweet"><h3 style="color:blue">ツイートする！</h3></a></button>
-            {% else %}
-              <button type="button" class="btn btn-primary"><a href="/twitter_auth"><h3>Twitter と連携する</h3></a></button>
-              <br>
-              画像をツイートするには Twitter との連携が必要です。
-            {% endif %}
-          </div>
-        
-        </div>
-        <br/>
-        <br/>
-        
-        <div class="border border-light p-3 mb-4">
-        
-          <div class="text-center">
-            <button type="button" class="btn btn-primary"><a onclick="logout()"><h4>ログアウト</h4></a></button>
-          </div>
-        
-        </div>
-        <div class="border border-light p-3 mb-4">
-        
-          <div class="text-center">
-            <button type="button" class="btn btn-primary"><a href="https://github.com/7ma7X/spotify-wordcloud/issues">バグ報告等はこちらから</a></button>
-          </div>
-        
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3"><p class="text-muted">@ 2020 HelloRusk</p>
-    </div>
-    
-    <script>
-      var myImage = document.querySelector('.generated');
-      var result = document.querySelector('.result');
-      var tweetArea = document.querySelector('.tweet');
-
-      function generate() {
-        result.innerHTML = "ワードクラウドを作成中...."
-
-        fetch("/generate", {
-          cache:"no-cache",
-        })
-          .then(res => { 
-            if (res.status !== 200) {
-              throw Error("invalid status");
-            }
-            return res.blob()
-          })
-          .then(myBlob => {
-            var objectURL = URL.createObjectURL(myBlob);
-            myImage.src = objectURL;
-            result.innerHTML = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）"
-            tweetArea.setAttribute("style", "display: block;")
-          })
-          .catch(e => {
-            result.innerHTML = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。"
-          })
-      }
-
-      generate();
-    </script>
-    <script>
-      function logout() {
-        var url = 'https://accounts.spotify.com/en/logout'                                                                                                                                                                                                                                                                               
-        var spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')                                                                                                
-        setTimeout(() => {
-          spotifyLogoutWindow.close()
-          location.href="/logout"
-        }, 1000)
-      }
-    </script>
-  </body>
-</html>
+</div>
+<script src="/static/js/authorized.js"></script>
+{% endblock %}
