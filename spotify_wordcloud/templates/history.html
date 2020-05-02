@@ -14,7 +14,7 @@
       <div class="card-body">
         <p class="card-text">{{ item.created_at.strftime('%Y年%m月%d日 %H:%M:%S') }} 作成</p>
         <form action={{deletesrc}} method="POST">
-          <input type="hidden" name="_method" value="DELETE" />
+          <input type="hidden" name="_method" value="DELETE" value="{{ csrf_token() }}"/>
           <button type="submit" class="btn btn-default" style="text-align: right; color: red; margin: 0; padding: 0;">削除</button>
         </form>
       </div>
