@@ -1,6 +1,7 @@
 var myImage = document.querySelector('.generated');
 var result = document.querySelector('.result');
 var tweetArea = document.querySelector('.tweet');
+var savedArea = document.querySelector('.saved');
 
 function generate() {
   result.innerHTML = "ワードクラウドを作成中...."
@@ -19,6 +20,7 @@ function generate() {
       myImage.src = objectURL;
       result.innerHTML = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）"
       tweetArea.setAttribute("style", "display: block;")
+      savedArea.setAttribute("style", "display: block;")
     })
     .catch(e => {
       result.innerHTML = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。"
