@@ -146,7 +146,7 @@ def tweet():
 
             filename = f"/tmp/{ha}.png"
             res = api.media_upload(filename)
-            api.update_status("Spotifyで自己紹介！\n#Spotify_Wordcloud\nhttps://spotify-wordcloud.herokuapp.com/", media_ids=[res.media_id])
+            api.update_status("Spotifyで自己紹介！\n#Spotify_WordCloud\nhttps://spotify-wordcloud.herokuapp.com/", media_ids=[res.media_id])
             
             return render_template('tweet_success.html')
 

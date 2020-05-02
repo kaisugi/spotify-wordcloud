@@ -1,6 +1,6 @@
 # Spotify WordCloud
 
-Spotify Wordcloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです。
+Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです。
 
 https://spotify-wordcloud.herokuapp.com/
 
