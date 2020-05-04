@@ -54,8 +54,13 @@ def twitter_auth():
 
 @app.route("/callback")
 def callback():
-    session['oauth_verifier'] = request.args.get('oauth_verifier')
-    return redirect("/")
+    try:
+        session['oauth_verifier'] = request.args.get('oauth_verifier')
+        return redirect("/")
+
+    except Exception as e:
+        logging.error(str(e))
+        return Response(status=500)
 
 
 @app.route('/generate')
@@ -166,8 +171,7 @@ def save():
 
 
             # save to DB
-            profile = spotify.get("v1/me").json()
-            record = Pictures(user_id=profile["id"], file_name=f"{s3_filename}.png")
+            record = Pictures(user_id=session["user_id"], file_name=f"{s3_filename}.png")
             db.session.add(record)
             db.session.commit()
 
@@ -233,8 +237,7 @@ def tweet():
 @app.route('/history')
 def history():
     if spotify.authorized:
-        profile = spotify.get("v1/me").json()
-        pictures = db.session.query(Pictures).filter(Pictures.user_id==profile["id"]).order_by(Pictures.created_at.desc()).all()
+        pictures = db.session.query(Pictures).filter(Pictures.user_id==session["user_id"]).order_by(Pictures.created_at.desc()).all()
         db.session.commit()
 
         return render_template('history.html', pictures=pictures)
@@ -247,9 +250,8 @@ def history():
 def delete_picture(file_hash):
     if spotify.authorized:
         if request.form.get('_method') == 'DELETE':
-            profile = spotify.get("v1/me").json()
             pictures = db.session.query(Pictures).filter(Pictures.file_name==(file_hash+".png"))\
-                .filter(Pictures.user_id==profile["id"]).delete()
+                .filter(Pictures.user_id==session["user_id"]).delete()
             db.session.commit()
 
             return redirect("/history")
