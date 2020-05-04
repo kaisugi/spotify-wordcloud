@@ -96,7 +96,7 @@ def generate():
         return Response(status=401)
 
 
-@app.route('/save')
+@app.route('/save', methods=['POST'])
 def save():
     if spotify.authorized:
         try:
@@ -147,7 +147,7 @@ def save():
         return Response(status=401)    
 
 
-@app.route('/tweet')
+@app.route('/tweet', methods=['POST'])
 def tweet():
     if spotify.authorized:
         try:
