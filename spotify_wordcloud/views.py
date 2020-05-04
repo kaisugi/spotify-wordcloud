@@ -96,6 +96,41 @@ def generate():
         return Response(status=401)
 
 
+@app.route('/regenerate')
+def regenerate():
+    if spotify.authorized:
+        try:
+            text = ""
+
+            if "spotify_wordcloud_text" not in session:
+                data = spotify.get("/v1/me/top/artists?limit=50").json()
+
+                for i, item in enumerate(data['items']):
+                    for k in range((50-i)//10):
+                        text += item['name']
+                        text += " "
+
+                session["spotify_wordcloud_text"] = text  # save text
+                ha = hashlib.md5(text.encode('utf-8')).hexdigest()
+                session["spotify_wordcloud_hash"] = ha  # save hash
+
+            text = session["spotify_wordcloud_text"]
+            ha = session["spotify_wordcloud_hash"]
+
+            wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
+            image = wc.to_image()
+            image.save(f"/tmp/{ha}.png", format='png', optimize=True)
+
+            return send_file(f"/tmp/{ha}.png", mimetype='image/png')
+
+        except Exception as e:
+            logging.error(str(e))
+            return Response(status=400)
+
+    else:
+        return Response(status=401)
+
+
 @app.route('/save', methods=['POST'])
 def save():
     if spotify.authorized:

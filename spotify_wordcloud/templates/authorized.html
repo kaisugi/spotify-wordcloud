@@ -10,6 +10,17 @@
 <br>
 <br>
 
+<div class="border border-light p-3 mb-4 saved" style="display: none;">
+  <div class="text-center">
+    <form method="post" name="saveform" action="/save">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    </form>
+    <button type="button" class="btn btn-primary"><a href="javascript:saveform.submit()"><h3>画像を保存する</h3></a></button>
+    <br>
+    作成した画像をいつでも見返せるようになります。
+  </div>
+</div>
+
 <div class="border border-light p-3 mb-4 tweet" style="display: none;">
   
   <div class="text-center">
@@ -25,17 +36,6 @@
     {% endif %}
   </div>
 
-</div>
-
-<div class="border border-light p-3 mb-4 saved" style="display: none;">
-  <div class="text-center">
-    <form method="post" name="saveform" action="/save">
-      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-    </form>
-    <button type="button" class="btn btn-primary"><a href="javascript:saveform.submit()"><h3>画像を保存する</h3></a></button>
-    <br>
-    作成した画像をいつでも見返せるようになります。
-  </div>
 </div>
 
 <div class="border border-light p-3 mb-4">
