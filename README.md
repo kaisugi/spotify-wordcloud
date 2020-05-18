@@ -3,7 +3,7 @@
 Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです。
 
 AWS: https://spow.tk  
-Heoku: https://spotify-wordcloud.herokuapp.com/
+Heroku: https://spotify-wordcloud.herokuapp.com/
 
 ## URL
 
