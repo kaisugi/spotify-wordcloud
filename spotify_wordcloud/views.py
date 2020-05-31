@@ -237,10 +237,15 @@ def tweet():
 @app.route('/history')
 def history():
     if spotify.authorized:
-        pictures = db.session.query(Pictures).filter(Pictures.user_id==session["user_id"]).order_by(Pictures.created_at.desc()).all()
-        db.session.commit()
+        try:
+            pictures = db.session.query(Pictures).filter(Pictures.user_id==session["user_id"]).order_by(Pictures.created_at.desc()).all()
+            db.session.commit()
 
-        return render_template('history.html', pictures=pictures)
+            return render_template('history.html', pictures=pictures)
+
+        except Exception as e:
+            logging.error(str(e))
+            return render_template('result.html', result="画像一覧の表示に失敗しました。時間を置いて再度試してみてください。")
 
     else:
         return Response(status=401)
@@ -248,13 +253,17 @@ def history():
 
 @app.route('/history/<string:file_hash>', methods=['POST'])
 def delete_picture(file_hash):
-    if spotify.authorized:
-        if request.form.get('_method') == 'DELETE':
+    if spotify.authorized and (request.form.get('_method') == 'DELETE'):
+        try:
             pictures = db.session.query(Pictures).filter(Pictures.file_name==(file_hash+".png"))\
                 .filter(Pictures.user_id==session["user_id"]).delete()
             db.session.commit()
 
             return redirect("/history")
+
+        except Exception as e:
+            logging.error(str(e))
+            return render_template('result.html', result="画像の削除に失敗しました。時間を置いて再度試してみてください。")
 
     else:
         return Response(status=401)
