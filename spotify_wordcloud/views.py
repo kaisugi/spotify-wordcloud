@@ -87,7 +87,7 @@ def generate():
             if path.exists(f"/tmp/{ha}.png"):
                 return send_file(f"/tmp/{ha}.png", mimetype='image/png')
 
-            freq = WordCloud().process_text(text)
+            freq = WordCloud(stopwords=set()).process_text(text)
             # force regularize
             for k, v in freq.items():
                 if v >= 6:
@@ -127,7 +127,7 @@ def regenerate():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
-            freq = WordCloud().process_text(text)
+            freq = WordCloud(stopwords=set()).process_text(text)
             # force regularize
             for k, v in freq.items():
                 if v >= 6:
