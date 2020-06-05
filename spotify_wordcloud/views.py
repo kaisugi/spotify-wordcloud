@@ -87,7 +87,12 @@ def generate():
             if path.exists(f"/tmp/{ha}.png"):
                 return send_file(f"/tmp/{ha}.png", mimetype='image/png')
 
-            wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
+            freq = WordCloud(stopwords=set()).process_text(text)
+            # force regularize
+            for k, v in freq.items():
+                if v >= 6:
+                    freq[k] = 6
+            wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate_from_frequencies(freq)
             image = wc.to_image()
             image.save(f"/tmp/{ha}.png", format='png', optimize=True)
 
@@ -122,7 +127,12 @@ def regenerate():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
-            wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
+            freq = WordCloud(stopwords=set()).process_text(text)
+            # force regularize
+            for k, v in freq.items():
+                if v >= 6:
+                    freq[k] = 6
+            wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate_from_frequencies(freq)
             image = wc.to_image()
             image.save(f"/tmp/{ha}.png", format='png', optimize=True)
 
