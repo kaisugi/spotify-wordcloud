@@ -1,6 +1,4 @@
 from flask import Flask, session
-from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
-import flask_dance.consumer
 from flask_talisman import Talisman
 from flask_seasurf import SeaSurf
 from flask_sqlalchemy import SQLAlchemy
@@ -16,16 +14,9 @@ talisman = Talisman(
 )
 db = SQLAlchemy(app)
 
-import spotify_wordcloud.views
+from spotify_wordcloud.api import auth, image, history
 
-spotify_bp = make_spotify_blueprint(scope="user-top-read")
-app.register_blueprint(spotify_bp, url_prefix="/login")
-
-
-@flask_dance.consumer.oauth_authorized.connect_via(spotify_bp)
-def spotify_logged_in(blueprint, token):
-    session.clear()
-
-    profile = spotify.get("v1/me").json()
-    session['user_id'] = profile["id"]
-    
+app.register_blueprint(auth.spotify_bp, url_prefix="/login")
+app.register_blueprint(auth.app)
+app.register_blueprint(image.app)
+app.register_blueprint(history.app)
