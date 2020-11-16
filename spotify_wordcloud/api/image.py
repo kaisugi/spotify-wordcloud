@@ -102,24 +102,13 @@ def save():
             text = ""
 
             if "spotify_wordcloud_text" not in session:
-                data = spotify.get("/v1/me/top/artists?limit=50").json()
-
-                for i, item in enumerate(data['items']):
-                    for k in range((50-i)//10):
-                        text += item['name']
-                        text += " "
-
-                session["spotify_wordcloud_text"] = text  # save text
-                ha = hashlib.md5(text.encode('utf-8')).hexdigest()
-                session["spotify_wordcloud_hash"] = ha  # save hash
+                text = hash_generation(session, text)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
             if not path.exists(f"/tmp/{ha}.png"):
-                wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
-                image = wc.to_image()
-                image.save(f"/tmp/{ha}.png", format='png', optimize=True)
+                image_generation(text, ha)
 
             # set filename from timestamp
             t_today = datetime.now()
@@ -152,24 +141,13 @@ def tweet():
             text = ""
 
             if "spotify_wordcloud_text" not in session:
-                data = spotify.get("/v1/me/top/artists?limit=50").json()
-
-                for i, item in enumerate(data['items']):
-                    for k in range((50-i)//10):
-                        text += item['name']
-                        text += " "
-
-                session["spotify_wordcloud_text"] = text  # save text
-                ha = hashlib.md5(text.encode('utf-8')).hexdigest()
-                session["spotify_wordcloud_hash"] = ha  # save hash
+                text = hash_generation(session, text)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
             if not path.exists(f"/tmp/{ha}.png"):
-                wc = WordCloud(font_path='/app/.fonts/ipaexg.ttf', width=1024, height=576, colormap='cool', stopwords=set()).generate(text)
-                image = wc.to_image()
-                image.save(f"/tmp/{ha}.png", format='png', optimize=True)
+                image_generation(text, ha)
 
             # Upload Media to Twitter
             auth = tweepy.OAuthHandler(current_app.config["TWITTER_API_KEY"], current_app.config["TWITTER_API_SECRET"], 'https://spotify-wordcloud.herokuapp.com/callback')
