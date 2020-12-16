@@ -3,8 +3,13 @@ var result = document.querySelector('.result');
 var tweetArea = document.querySelector('.tweet');
 var savedArea = document.querySelector('.saved');
 
+var generatingMessage = '<img src="/static/images/loading.svg"> ワードクラウドを作成中....';
+var successMessage = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）";
+var failureMessage = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。";
+var retryMessage = "違うデザインで作り直す";
+
 function generate() {
-  result.innerHTML = "ワードクラウドを作成中...."
+  result.innerHTML = generatingMessage;
 
   fetch("/generate", {
     cache:"no-cache",
@@ -18,26 +23,26 @@ function generate() {
     .then(myBlob => {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
-      result.innerHTML = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）"
+      result.innerHTML = successMessage;
       tweetArea.setAttribute("style", "display: block;")
       savedArea.setAttribute("style", "display: block;")
 
       var regenerate = document.createElement("a")
       regenerate.setAttribute("onclick", "regenerate()")
       regenerate.setAttribute("style", "color:#000080; cursor:pointer;")
-      regenerate.innerHTML = "違うデザインで作り直す"
+      regenerate.innerHTML = retryMessage;
       result.appendChild(document.createElement("br"))
       result.appendChild(regenerate)
     })
     .catch(e => {
-      result.innerHTML = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。"
+      result.innerHTML = failureMessage;
     })
 }
 
 generate();
 
 function regenerate() {
-  result.innerHTML = "ワードクラウドを作成中...."
+  result.innerHTML = generatingMessage;
 
   fetch("/regenerate", {
     cache:"no-cache",
@@ -51,19 +56,19 @@ function regenerate() {
     .then(myBlob => {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
-      result.innerHTML = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）"
+      result.innerHTML = successMessage;
       tweetArea.setAttribute("style", "display: block;")
       savedArea.setAttribute("style", "display: block;")
 
       var regenerate = document.createElement("a")
       regenerate.setAttribute("onclick", "regenerate()")
       regenerate.setAttribute("style", "color:#000080; cursor:pointer;")
-      regenerate.innerHTML = "違うデザインで作り直す"
+      regenerate.innerHTML = retryMessage;
       result.appendChild(document.createElement("br"))
       result.appendChild(regenerate)
     })
     .catch(e => {
-      result.innerHTML = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。"
+      result.innerHTML = failureMessage;
     })
 }
 
