@@ -1,9 +1,19 @@
-from os import environ
+from dotenv import load_dotenv
+
+from os import environ, path
+from pathlib import Path
+
+load_dotenv(verbose=True)
+
+parent_path = Path(__file__).parent
+dotenv_path = path.join(parent_path, '.env')
+load_dotenv(dotenv_path)
 
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 SECRET_KEY = environ.get("SECRET_KEY")
+
 SPOTIFY_OAUTH_CLIENT_ID = environ.get("SPOTIFY_OAUTH_CLIENT_ID")
 SPOTIFY_OAUTH_CLIENT_SECRET = environ.get("SPOTIFY_OAUTH_CLIENT_SECRET")
 
