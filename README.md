@@ -26,3 +26,9 @@ https://spotify-wordcloud.herokuapp.com/
 Spotify の "Get a User's Top Artists" API からトップアーティスト一覧を取得し, 1つの文字列として組み合わせてから, それをもとにワードクラウドを作成する.  
 組み合わされた文字列はセッションに保持する. また, 文字列をハッシュ化したものをファイル名として, 作成した画像を `/tmp` フォルダ以下に置く.    
 画像作成に関連する URL は常に, まずこれらのキャッシュ情報を最初に参照するように試みる. ただし, /regenerate では `/tmp` フォルダ以下を参照せず, 再び画像を作成する.  
+
+## Test locally
+
+```
+FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
+```
