@@ -3,6 +3,7 @@ import flask_dance.consumer
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
 import tweepy
 
+import logging
 
 spotify_bp = make_spotify_blueprint(scope="user-top-read")
 
