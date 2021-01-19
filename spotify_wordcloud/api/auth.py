@@ -7,25 +7,27 @@ import logging
 
 spotify_bp = make_spotify_blueprint(scope="user-top-read")
 
+
 @flask_dance.consumer.oauth_authorized.connect_via(spotify_bp)
 def spotify_logged_in(blueprint, token):
     session.clear()
 
     profile = spotify.get("v1/me").json()
-    session['user_id'] = profile["id"]
+    session["user_id"] = profile["id"]
 
 
-app = Blueprint('auth', __name__, url_prefix='/')
+app = Blueprint("auth", __name__, url_prefix="/")
+
 
 @app.route("/")
 def index():
     if spotify.authorized:
-        if 'oauth_verifier' in session:
-            return render_template('authorized.html', twitter_authorized=True)
+        if "oauth_verifier" in session:
+            return render_template("authorized.html", twitter_authorized=True)
         else:
-            return render_template('authorized.html', twitter_authorized=False)
+            return render_template("authorized.html", twitter_authorized=False)
     else:
-        return render_template('unauthorized.html')
+        return render_template("unauthorized.html")
 
 
 @app.route("/login")
@@ -39,14 +41,18 @@ def logout():
     return redirect("/")
 
 
-@app.route('/twitter_auth')
+@app.route("/twitter_auth")
 def twitter_auth():
     redirect_url = ""
-    auth = tweepy.OAuthHandler(current_app.config["TWITTER_API_KEY"], current_app.config["TWITTER_API_SECRET"], 'https://spotify-wordcloud.herokuapp.com/callback')
+    auth = tweepy.OAuthHandler(
+        current_app.config["TWITTER_API_KEY"],
+        current_app.config["TWITTER_API_SECRET"],
+        "https://spotify-wordcloud.herokuapp.com/callback",
+    )
 
     try:
         redirect_url = auth.get_authorization_url()
-        session['request_token'] = auth.request_token
+        session["request_token"] = auth.request_token
     except tweepy.TweepError as e:
         logging.error(str(e))
 
@@ -56,7 +62,7 @@ def twitter_auth():
 @app.route("/callback")
 def callback():
     try:
-        session['oauth_verifier'] = request.args.get('oauth_verifier')
+        session["oauth_verifier"] = request.args.get("oauth_verifier")
         return redirect("/")
 
     except Exception as e:
