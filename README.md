@@ -1,6 +1,6 @@
 # Spotify WordCloud
 
-![Python application](https://github.com/HelloRusk/spotify-wordcloud/workflows/Python%20application/badge.svg)
+![Lint + Format](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format/badge.svg)
 
 Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです.
 
