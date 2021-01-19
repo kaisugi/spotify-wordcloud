@@ -1,15 +1,22 @@
 import boto3
-from flask import *
+from flask import (
+    Blueprint,
+    current_app,
+    render_template,
+    Response,
+    send_file,
+    session
+)
 from flask_dance.contrib.spotify import spotify
 import tweepy
 from wordcloud import WordCloud
 
-from datetime import date, datetime
+from datetime import datetime
 import hashlib
 import logging
 from os import path
 
-from spotify_wordcloud import db
+from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
 
 s3_client = boto3.client("s3", region_name="ap-northeast-1")
@@ -176,7 +183,8 @@ def tweet():
             filename = f"/tmp/{ha}.png"
             res = api.media_upload(filename)
             api.update_status(
-                "Spotifyで自己紹介！\n#Spotify_WordCloud\nhttps://spotify-wordcloud.herokuapp.com/",
+                "Spotifyで自己紹介！\n#Spotify_WordCloud\n"
+                + "https://spotify-wordcloud.herokuapp.com/",
                 media_ids=[res.media_id],
             )
 

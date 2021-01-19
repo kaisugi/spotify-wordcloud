@@ -1,4 +1,13 @@
-from flask import *
+from flask import (
+    Blueprint,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    Response,
+    session,
+    url_for
+)
 import flask_dance.consumer
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
 import tweepy

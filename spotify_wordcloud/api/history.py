@@ -1,9 +1,16 @@
-from flask import *
+from flask import (
+    Blueprint,
+    redirect,
+    render_template,
+    request,
+    Response,
+    session
+)
 from flask_dance.contrib.spotify import spotify
 
 import logging
 
-from spotify_wordcloud import db
+from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
 
 app = Blueprint("history", __name__, url_prefix="/")
@@ -37,12 +44,10 @@ def history():
 def delete_picture(file_hash):
     if spotify.authorized and (request.form.get("_method") == "DELETE"):
         try:
-            pictures = (
-                db.session.query(Pictures)
-                .filter(Pictures.file_name == (file_hash + ".png"))
-                .filter(Pictures.user_id == session["user_id"])
+            db.session.query(Pictures)\
+                .filter(Pictures.file_name == (file_hash + ".png"))\
+                .filter(Pictures.user_id == session["user_id"])\
                 .delete()
-            )
             db.session.commit()
 
             return redirect("/history")

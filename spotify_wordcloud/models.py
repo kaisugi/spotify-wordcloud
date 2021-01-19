@@ -1,5 +1,5 @@
 from datetime import datetime
-from spotify_wordcloud import db
+from spotify_wordcloud.app import db
 
 
 class Pictures(db.Model):
