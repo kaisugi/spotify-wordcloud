@@ -30,5 +30,5 @@ Spotify の "Get a User's Top Artists" API からトップアーティスト一�
 ## Test locally
 
 ```
-FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
+$ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 ```
