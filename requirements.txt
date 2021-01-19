@@ -1,5 +1,6 @@
+black==20.8b1
 blinker==1.4
-boto3==1.13.1
+flake8==3.8.4
 Flask-Dance==3.0.0
 Flask-SeaSurf==0.2.2
 Flask-SQLAlchemy==2.4.1

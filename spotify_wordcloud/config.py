@@ -6,7 +6,7 @@ from pathlib import Path
 load_dotenv(verbose=True)
 
 parent_path = Path(__file__).parent
-dotenv_path = path.join(parent_path, '.env')
+dotenv_path = path.join(parent_path, ".env")
 load_dotenv(dotenv_path)
 
 CSRF_COOKIE_SECURE = True
