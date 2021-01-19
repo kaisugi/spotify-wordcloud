@@ -12,8 +12,8 @@ if not app.config["FLASK_DEBUG"]:
     talisman = Talisman(
         app,
         content_security_policy="default-src https: self; "
-                                "script-src https: 'unsafe-inline'; "
-                                "style-src https: 'unsafe-inline'; "
-                                "img-src * blob:;",
+        "script-src https: 'unsafe-inline'; "
+        "style-src https: 'unsafe-inline'; "
+        "img-src * blob:;",
     )
 db = SQLAlchemy(app)

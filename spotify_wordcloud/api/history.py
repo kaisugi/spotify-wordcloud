@@ -5,7 +5,7 @@ from flask import (
     render_template,
     request,
     Response,
-    session
+    session,
 )
 from flask_dance.contrib.spotify import spotify
 
@@ -29,8 +29,11 @@ def history():
             )
             db.session.commit()
 
-            return render_template("history.html", pictures=pictures,
-                                   aws_s3_url=current_app.config["AWS_S3_URL"])
+            return render_template(
+                "history.html",
+                pictures=pictures,
+                aws_s3_url=current_app.config["AWS_S3_URL"],
+            )
 
         except Exception as e:
             logging.error(str(e))
@@ -46,10 +49,9 @@ def history():
 def delete_picture(file_hash):
     if spotify.authorized and (request.form.get("_method") == "DELETE"):
         try:
-            db.session.query(Pictures)\
-                .filter(Pictures.file_name == (file_hash + ".png"))\
-                .filter(Pictures.user_id == session["user_id"])\
-                .delete()
+            db.session.query(Pictures).filter(
+                Pictures.file_name == (file_hash + ".png")
+            ).filter(Pictures.user_id == session["user_id"]).delete()
             db.session.commit()
 
             return redirect("/history")

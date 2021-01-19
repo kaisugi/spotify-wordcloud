@@ -1,12 +1,5 @@
 import boto3
-from flask import (
-    Blueprint,
-    current_app,
-    render_template,
-    Response,
-    send_file,
-    session
-)
+from flask import Blueprint, current_app, render_template, Response, send_file, session
 from flask_dance.contrib.spotify import spotify
 import tweepy
 from wordcloud import WordCloud
