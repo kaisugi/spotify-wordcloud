@@ -1,5 +1,6 @@
 from flask import (
     Blueprint,
+    current_app,
     redirect,
     render_template,
     request,
@@ -28,7 +29,8 @@ def history():
             )
             db.session.commit()
 
-            return render_template("history.html", pictures=pictures)
+            return render_template("history.html", pictures=pictures,
+                                   aws_s3_url=current_app.config["AWS_S3_URL"])
 
         except Exception as e:
             logging.error(str(e))
