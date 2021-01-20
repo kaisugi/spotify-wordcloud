@@ -1,12 +1,4 @@
-from flask import (
-    Blueprint,
-    current_app,
-    redirect,
-    render_template,
-    request,
-    Response,
-    session,
-)
+from flask import Blueprint, Response, current_app, redirect, render_template, request, session
 from flask_dance.contrib.spotify import spotify
 
 import logging
