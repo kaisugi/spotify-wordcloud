@@ -34,7 +34,9 @@ def hash_generation(session, text):
 
 
 def image_generation(text, ha):
-    freq = WordCloud(stopwords=set()).process_text(text)
+    stopwords = ("THE", "The")
+
+    freq = WordCloud(stopwords=stopwords).process_text(text)
     # force regularize
     for k, v in freq.items():
         if v >= 6:
@@ -44,7 +46,7 @@ def image_generation(text, ha):
         width=1024,
         height=576,
         colormap="cool",
-        stopwords=set(),
+        stopwords=stopwords,
     ).generate_from_frequencies(freq)
     image = wc.to_image()
     image.save(f"/tmp/{ha}.png", format="png", optimize=True)
