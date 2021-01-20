@@ -164,7 +164,7 @@ def tweet():
             auth = tweepy.OAuthHandler(
                 current_app.config["TWITTER_API_KEY"],
                 current_app.config["TWITTER_API_SECRET"],
-                "https://spotify-wordcloud.herokuapp.com/callback",
+                current_app.config["CALLBACK_URL"],
             )
             token = session.pop("request_token", None)
             auth.request_token = token
