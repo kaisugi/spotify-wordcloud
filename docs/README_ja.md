@@ -30,7 +30,7 @@ $ pip install -r requirements.txt
 
 ### Configuration
 
-Set local  environment variables in `.env`.  
+Set local environment variables in `.env`.  
 You can refer to `.env.example`.
 
 ### Run server

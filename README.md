@@ -31,7 +31,8 @@ $ pip install -r requirements.txt
 
 ### Configuration
 
-Set local  environment variables. You can refer to `.env.example` file.
+Set local environment variables in `.env`.  
+You can refer to `.env.example`.
 
 ### Run server
 
@@ -54,7 +55,7 @@ $ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 |  /save  |  POST  |  Create a word cloud image, upload the image to S3, and save it in the DB with user ID and creation date   |    
 |  /tweet  |  POST  | Create a word cloud image and tweet it   |    
 |  /history  | GET   | Display the list of images created in the past  |    
-|  /history/:file_hash  |  DELETE  |  Deletes the specified image  |    
+|  /history/:file_hash  |  DELETE  |  Delete the specified image  |    
 
 #### Learn more about creating word cloud images
 
