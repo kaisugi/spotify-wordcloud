@@ -8,7 +8,7 @@ English · [日本語](./docs/README_ja.md)
 
 <br>
 <div align="center">
-  <img src="./spotify_wordcloud/static/images/top.png" width="80%">
+  <img src="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png" width="80%">
 </div>
 <br>
 
