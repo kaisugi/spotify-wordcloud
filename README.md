@@ -6,6 +6,12 @@ English · [日本語](./docs/README_ja.md)
 
 ---
 
+<br>
+<div align="center">
+  <img src="./spotify_wordcloud/static/images/top.png" width="80%">
+</div>
+<br>
+
 Spotify WordCloud is an app that lets you create a word cloud from the names of your favorite artists.  
 You can tweet the word cloud on the spot. You can also save the word cloud and look back at it later.  
 

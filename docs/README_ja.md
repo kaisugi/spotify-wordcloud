@@ -6,6 +6,12 @@
 
 ---
 
+<br>
+<div align="center">
+  <img src="../spotify_wordcloud/static/images/top.png" width="80%">
+</div>
+<br>
+
 Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです.  
 ワードクラウドをその場でツイートすることができます. また, ワードクラウドを保存して, あとから見返すこともできます.  
 
