@@ -47,7 +47,7 @@ def image_generation(text, ha):
         height=576,
         colormap="cool",
         stopwords=stopwords,
-        regexp=r"\S[\S']+"
+        regexp=r"\S[\S']+",
     ).generate_from_frequencies(freq)
     image = wc.to_image()
     image.save(f"/tmp/{ha}.png", format="png", optimize=True)
