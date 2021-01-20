@@ -42,7 +42,7 @@ $ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 
 ## URL
 
-| パス   |  メソッド  |  内容  |
+| Path   |  Method  |  Description  |
 |:---|:---|:---|
 |  /  |  GET  |  Display the top screen  |
 |  /login  |  GET  |   Log in to Spotify |
