@@ -2,35 +2,62 @@
 
 ![Lint + Format](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format/badge.svg)
 
-Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです.
+English · [日本語](./docs/README_ja.md)
+
+---
+
+Spotify WordCloud is an app that lets you create a word cloud from the names of your favorite artists.  
+You can tweet the word cloud on the spot. You can also save the word cloud and look back at it later.  
 
 https://spotify-wordcloud.herokuapp.com/  
+(currently only available in Japanese)
+
+## Test locally
+
+### Requirements
+
+- Python 3.8
+- Spotify Account
+- Twitter Account
+- AWS Account (to save images in Amazon S3)
+
+### Installation
+
+```
+$ git clone https://github.com/HelloRusk/spotify-wordcloud
+$ cd spotify-wordcloud
+$ pip install -r requirements.txt
+```
+
+### Configuration
+
+Set local  environment variables. You can refer to `.env.example` file.
+
+### Run server
+
+```
+$ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
+```
 
 ## URL
 
 | パス   |  メソッド  |  内容  |
 |:---|:---|:---|
-|  /  |  GET  |  トップ画面の表示  |
-|  /login  |  GET  |   Spotify へのログイン |
-| /login/spotify/authorized |GET |  Spotify OAuth 認証のコールバック  |    
-|  /twitter_auth  |  GET  |  Twitter へのログイン  |    
-|  /callback  |  GET  |  Twitter OAuth 認証のコールバック  |    
-|  /logout  | GET   |  全てのログアウト（セッションの破棄）  |   
-|  /generate  |  GET  |  ワードクラウド画像を作成し, そのバイナリを返す API  |    
-|  /regenerate  |  GET  |  ワードクラウド画像を作成し, そのバイナリを返す API （ generate と異なり, キャッシュがあっても強制的に再作成する）  |  
-|  /save  |  POST  |  ワードクラウド画像を作成し, 画像を S3 にアップロードした上で, ユーザーID, 作成日時とともに DB に保存する   |    
-|  /tweet  |  POST  | ワードクラウド画像を作成し, ツイートする   |    
-|  /history  | GET   | 過去に作成した画像一覧の表示  |    
-|  /history/:file_hash  |  DELETE  |  指定された画像の削除  |    
+|  /  |  GET  |  Display the top screen  |
+|  /login  |  GET  |   Log in to Spotify |
+| /login/spotify/authorized |GET |  Callback for Spotify OAuth authentication  |    
+|  /twitter_auth  |  GET  |  Log in to Twitter  |    
+|  /callback  |  GET  |  Callback for Twitter OAuth authentication  |    
+|  /logout  | GET   |  Log out all (destroy session)  |   
+|  /generate  |  GET  |  Create a word cloud image and return its binary  |    
+|  /regenerate  |  GET  | Create a word cloud image and return its binary <br>(Unlike /generate method, it forces re-creation even if there is a cache)  |  
+|  /save  |  POST  |  Create a word cloud image, upload the image to S3, and save it in the DB with user ID and creation date   |    
+|  /tweet  |  POST  | Create a word cloud image and tweet it   |    
+|  /history  | GET   | Display the list of images created in the past  |    
+|  /history/:file_hash  |  DELETE  |  Deletes the specified image  |    
 
-**ワードクラウド画像の作成について**
+#### Learn more about creating word cloud images
 
-Spotify の "Get a User's Top Artists" API からトップアーティスト一覧を取得し, 1つの文字列として組み合わせてから, それをもとにワードクラウドを作成する.  
-組み合わされた文字列はセッションに保持する. また, 文字列をハッシュ化したものをファイル名として, 作成した画像を `/tmp` フォルダ以下に置く.    
-画像作成に関連する URL は常に, まずこれらのキャッシュ情報を最初に参照するように試みる. ただし, /regenerate では `/tmp` フォルダ以下を参照せず, 再び画像を作成する.  
-
-## Test locally
-
-```
-$ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
-```
+This app retrieves the list of top artists from Spotify's "Get a User's Top Artists" API, combines them into a single string, and creates a word cloud based on it.  
+The combined string is kept in the session. The image is placed in the `/tmp` folder with the hash of the string as the file name.    
+URLs related to image creation will always try to refer to these cached information first. However, /regenerate does not refer to the `/tmp` folder, and creates the image again.  
