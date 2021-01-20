@@ -40,6 +40,8 @@ You can refer to `.env.example`.
 $ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 ```
 
+and open `http://127.0.0.1:5000/`.
+
 ## URL
 
 | Path   |  Method  |  Description  |
