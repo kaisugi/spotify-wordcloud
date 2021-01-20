@@ -1,10 +1,10 @@
 from flask import (
     Blueprint,
+    Response,
     current_app,
     redirect,
     render_template,
     request,
-    Response,
     session,
     url_for,
 )
