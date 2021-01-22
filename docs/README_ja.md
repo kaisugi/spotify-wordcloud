@@ -1,6 +1,6 @@
 # Spotify WordCloud
 
-![Lint + Format](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format/badge.svg)
+[![Lint + Format](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format/badge.svg)](https://github.com/HelloRusk/spotify-wordcloud/actions) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 [English](../README.md) · 日本語
 
