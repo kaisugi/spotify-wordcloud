@@ -21,7 +21,7 @@ https://spotify-wordcloud.herokuapp.com/
 
 ### Requirements
 
-- Python 3.8
+- Python 3.6, 3.7, or 3.8
 - Spotify Account
 - Twitter Account
 - AWS Account (to save images in Amazon S3)
