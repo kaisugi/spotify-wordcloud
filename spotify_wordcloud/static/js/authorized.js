@@ -29,7 +29,7 @@ function generate() {
 
       var regenerate = document.createElement("a")
       regenerate.setAttribute("onclick", "regenerate()")
-      regenerate.setAttribute("style", "color:#000080; cursor:pointer;")
+      regenerate.setAttribute("style", "color:#212eaa; cursor:pointer;")
       regenerate.innerHTML = retryMessage;
       result.appendChild(document.createElement("br"))
       result.appendChild(regenerate)
@@ -62,7 +62,7 @@ function regenerate() {
 
       var regenerate = document.createElement("a")
       regenerate.setAttribute("onclick", "regenerate()")
-      regenerate.setAttribute("style", "color:#000080; cursor:pointer;")
+      regenerate.setAttribute("style", "color:#212eaa; cursor:pointer;")
       regenerate.innerHTML = retryMessage;
       result.appendChild(document.createElement("br"))
       result.appendChild(regenerate)
