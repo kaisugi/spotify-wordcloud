@@ -8,6 +8,7 @@ from datetime import datetime
 import hashlib
 import logging
 from os import path
+import random
 
 from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
@@ -21,11 +22,14 @@ app = Blueprint("image", __name__, url_prefix="/")
 def hash_generation(session, text):
     data = spotify.get("/v1/me/top/artists?limit=50").json()
 
-    for i, item in enumerate(data["items"]):
-        for k in range((50 - i) // 10):
-            text += item["name"]
-            text += " "
+    artists = []
 
+    for i, item in enumerate(data["items"]):
+        for k in range((50 - i) // 9):
+            artists.append(item["name"])
+
+    random.shuffle(artists)
+    text += " ".join(artists)
     session["spotify_wordcloud_text"] = text  # save text
     ha = hashlib.md5(text.encode("utf-8")).hexdigest()
     session["spotify_wordcloud_hash"] = ha  # save hash
@@ -41,6 +45,7 @@ def image_generation(text, ha):
     for k, v in freq.items():
         if v >= 6:
             freq[k] = 6
+    print(freq)
     wc = WordCloud(
         font_path="/app/.fonts/ipaexg.ttf",
         width=1024,
