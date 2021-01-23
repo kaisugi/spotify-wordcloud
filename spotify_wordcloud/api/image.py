@@ -25,7 +25,7 @@ def hash_generation(session, text):
     artists = []
 
     for i, item in enumerate(data["items"]):
-        for k in range((50 - i) // 9):
+        for k in range((50 - i) // 10):
             artists.append(item["name"])
 
     random.shuffle(artists)
