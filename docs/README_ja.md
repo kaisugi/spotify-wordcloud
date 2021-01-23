@@ -38,8 +38,8 @@ $ pip install -r requirements.txt
 ### Initialize DB
 
 ```
-docker-compose up -d
-FLASK_APP=run.py flask shell
+$ docker-compose up -d
+$ FLASK_APP=run.py flask shell
 >>> from spotify_wordcloud.app import db
 >>> db.create_all()
 ```
