@@ -1,4 +1,4 @@
-name: Lint + Format
+name: Lint + Format + Test
 
 on:
   push:
