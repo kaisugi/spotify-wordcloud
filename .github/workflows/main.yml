@@ -33,8 +33,6 @@ jobs:
     - name: Format with black
       run: |
         black . --check
-
-# WIP:       
-#    - name: Test with pytest
-#      run: |
-#        pytest
+    - name: Test with pytest
+      run: |
+        python -m pytest
