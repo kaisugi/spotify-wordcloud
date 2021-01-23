@@ -45,7 +45,6 @@ def image_generation(text, ha):
     for k, v in freq.items():
         if v >= 6:
             freq[k] = 6
-    print(freq)
     wc = WordCloud(
         font_path="/app/.fonts/ipaexg.ttf",
         width=1024,
