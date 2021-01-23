@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,700&display=swap&subset=japanese" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&subset=japanese&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
@@ -24,19 +25,29 @@
     <style type="text/css">
       .main {
         font-family: "M PLUS Rounded 1c", sans-serif;
+        margin-top: 70px;
       }
 
       span {
         display: inline-block;
       }
+
+      a {
+        color: #15883e;
+      }
+
+      .spotifylike {
+        font-family: "Montserrat", Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 700;
+      }
     </style>
     
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default fixed-top" style="background-color: #222326;">
       <div class="container" style="padding-left: 3px;">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Spotify WordCloud</a>
+          <a class="navbar-brand spotifylike" style="color: #FFFFFF" href="/">Spotify WordCloud</a>
         </div>
       </div>
     </nav>
