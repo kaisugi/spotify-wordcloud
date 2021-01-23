@@ -22,6 +22,7 @@ https://spotify-wordcloud.herokuapp.com/
 
 ### Requirements
 
+- Docker
 - Python 3.6, 3.7, or 3.8
 - Spotify Account
 - Twitter Account
@@ -35,6 +36,15 @@ $ cd spotify-wordcloud
 $ pip install -r requirements.txt
 ```
 
+### Initialize DB
+
+```
+docker-compose up -d
+FLASK_APP=run.py flask shell
+>>> from spotify_wordcloud.app import db
+>>> db.create_all()
+```
+
 ### Configuration
 
 Set local environment variables in `.env`.  
@@ -46,7 +56,7 @@ You can refer to `.env.example`.
 $ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 ```
 
-and open `http://127.0.0.1:5000/`.
+and open `http://localhost:5000/`.
 
 ## URL
 
