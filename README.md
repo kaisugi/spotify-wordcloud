@@ -36,6 +36,11 @@ $ cd spotify-wordcloud
 $ pip install -r requirements.txt
 ```
 
+### Configuration
+
+Set local environment variables in `.env`.  
+You can refer to `.env.example`.
+
 ### Initialize DB
 
 ```
@@ -44,11 +49,6 @@ $ FLASK_APP=run.py flask shell
 >>> from spotify_wordcloud.app import db
 >>> db.create_all()
 ```
-
-### Configuration
-
-Set local environment variables in `.env`.  
-You can refer to `.env.example`.
 
 ### Run server
 
