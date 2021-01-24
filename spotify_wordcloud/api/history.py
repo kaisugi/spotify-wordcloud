@@ -37,8 +37,11 @@ def history():
 
         except Exception as e:
             logging.error(str(e))
-            return render_template(
-                "result.html", result="画像一覧の表示に失敗しました。時間を置いて再度試してみてください。"
+            return (
+                render_template(
+                    "result.html", result="画像一覧の表示に失敗しました。時間を置いて再度試してみてください。"
+                ),
+                500,
             )
 
     else:
@@ -58,8 +61,11 @@ def delete_picture(file_hash):
 
         except Exception as e:
             logging.error(str(e))
-            return render_template(
-                "result.html", result="画像の削除に失敗しました。時間を置いて再度試してみてください。"
+            return (
+                render_template(
+                    "result.html", result="画像の削除に失敗しました。時間を置いて再度試してみてください。"
+                ),
+                500,
             )
 
     else:

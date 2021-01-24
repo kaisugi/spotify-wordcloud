@@ -146,7 +146,7 @@ def save():
 
         except Exception as e:
             logging.error(str(e))
-            return render_template("result.html", result="画像の保存に失敗しました。")
+            return render_template("result.html", result="画像の保存に失敗しました。"), 500
 
     else:
         return Response(status=401)
@@ -192,6 +192,6 @@ def tweet():
 
         except Exception as e:
             logging.error(str(e))
-            return render_template("result.html", result="ツイートに失敗しました。")
+            return render_template("result.html", result="ツイートに失敗しました。"), 500
     else:
         return Response(status=401)

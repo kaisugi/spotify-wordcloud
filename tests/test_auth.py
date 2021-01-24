@@ -3,6 +3,11 @@ from spotify_wordcloud import app
 from spotify_wordcloud.api.auth import spotify_bp
 
 
+"""
+test GET /
+"""
+
+
 def test_index_unauthorized(monkeypatch):
     storage = MemoryStorage()
     monkeypatch.setattr(spotify_bp, "storage", storage)
@@ -29,6 +34,11 @@ def test_index_authorized(monkeypatch):
     assert "過去に作成した画像" in text
 
 
+"""
+test GET /
+"""
+
+
 def test_login(monkeypatch):
     storage = MemoryStorage()
     monkeypatch.setattr(spotify_bp, "storage", storage)
@@ -38,6 +48,11 @@ def test_login(monkeypatch):
 
     assert res.status_code == 302
     assert res.headers["Location"] == "https://example.com/login/spotify"
+
+
+"""
+test GET /twitter_auth
+"""
 
 
 def test_twitter_auth_unauthorized(monkeypatch):
@@ -58,6 +73,11 @@ def test_twitter_auth_authorized(monkeypatch):
         res = client.get("/twitter_auth", base_url="https://example.com")
 
     assert res.status_code == 302
+
+
+"""
+test GET /logout
+"""
 
 
 def test_logout(monkeypatch):
