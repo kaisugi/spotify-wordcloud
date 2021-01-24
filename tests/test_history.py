@@ -1,5 +1,6 @@
 from flask_dance.consumer.storage import MemoryStorage
 from spotify_wordcloud import app
+from spotify_wordcloud.app import db
 from spotify_wordcloud.api.auth import spotify_bp
 import pytest
 
@@ -8,7 +9,7 @@ import pytest
 def client():
     with app.test_client() as client:
         with app.app_context():
-            app.init_db()
+            db.create_all()
         yield client
 
 
