@@ -7,7 +7,7 @@ from wordcloud import WordCloud
 from datetime import datetime
 import hashlib
 import logging
-from os import path
+from os import path, getcwd
 import random
 
 from spotify_wordcloud.app import db
@@ -46,7 +46,7 @@ def image_generation(text, ha):
         if v >= 6:
             freq[k] = 6
     wc = WordCloud(
-        font_path="/app/.fonts/ipaexg.ttf",
+        font_path=path.join(getcwd(), ".fonts/ipaexg.ttf"),
         width=1024,
         height=576,
         colormap="cool",
