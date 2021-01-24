@@ -25,6 +25,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-test.txt
+    - name: Copy font file
+      run: |
+        cp ./.fonts/ipaexg.ttf /app/.fonts/ipaexg.ttf
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
