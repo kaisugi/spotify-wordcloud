@@ -27,7 +27,7 @@ def test_history_unauthorized(monkeypatch):
     assert res.status_code == 401
 
 
-def test_history_authorized(monkeypatch):
+def test_history_authorized(client, monkeypatch):
     storage = MemoryStorage({"access_token": "fake-token"})
     monkeypatch.setattr(spotify_bp, "storage", storage)
 
