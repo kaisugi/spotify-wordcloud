@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 
 services:
   postgres:
@@ -9,13 +9,13 @@ services:
       POSTGRES_PASSWORD: admin
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
       - postgres
     restart: unless-stopped
-  
+
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -23,7 +23,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
-       - pgadmin:/root/.pgadmin
+      - pgadmin:/root/.pgadmin
     ports:
       - "5050:80"
     networks:
@@ -35,5 +35,5 @@ networks:
     driver: bridge
 
 volumes:
-    postgres:
-    pgadmin:
+  postgres:
+  pgadmin:

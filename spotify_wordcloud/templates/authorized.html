@@ -1,57 +1,77 @@
-{% extends "_base.html" %}
-{% block body %}
-<br>
+{% extends "_base.html" %} {% block body %}
+<br />
 <div class="result">
-  <div class="loading"></div> ワードクラウドを作成中....
+  <div class="loading"></div>
+  ワードクラウドを作成中....
 </div>
-<br>
-<img class="generated" width="100%"/>
+<br />
+<img class="generated" width="100%" />
 
-<br>
-<br>
+<br />
+<br />
 
-<div class="border border-light p-3 mb-4 tweet" style="display: none;">
-  
+<div class="border border-light p-3 mb-4 tweet" style="display: none">
   <div class="text-center">
     {% if twitter_authorized %}
-      <form method="post" name="tweetform" action="/tweet">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-      </form>
-      <button type="button" class="btn btn-primary"><a href="javascript:tweetform.submit()"><h3 style="color:#0C87CF">ツイートする！</h3></a></button>
+    <form method="post" name="tweetform" action="/tweet">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+    </form>
+    <button type="button" class="btn btn-primary">
+      <a href="javascript:tweetform.submit()"
+        ><h3 style="color: #0c87cf">ツイートする！</h3></a
+      >
+    </button>
     {% else %}
-      <button type="button" class="btn btn-primary" style="text-transform: none;"><a href="/twitter_auth"><h3>Twitter と連携する</h3></a></button>
-      <br>
-      <p class="inlinetext">画像をツイートするには Twitter との連携が必要です。<br><br>
-      <span style="opacity: 0.5;">※ 連携画面でやたら権限を要求していますが、これは Twitter 認証の仕様です。</span><span style="opacity: 0.5;">（<a href="https://twitter.com/fusetter/status/938938163044556801">参考リンク</a>）</span><br>
-      <span style="opacity: 0.5;">当アプリでは「ツイートの送信」以外は一切使いません。</span></p>
+    <button type="button" class="btn btn-primary" style="text-transform: none">
+      <a href="/twitter_auth"><h3>Twitter と連携する</h3></a>
+    </button>
+    <br />
+    <p class="inlinetext">
+      画像をツイートするには Twitter との連携が必要です。<br /><br />
+      <span style="opacity: 0.5"
+        >※ 連携画面でやたら権限を要求していますが、これは Twitter
+        認証の仕様です。</span
+      ><span style="opacity: 0.5"
+        >（<a href="https://twitter.com/fusetter/status/938938163044556801"
+          >参考リンク</a
+        >）</span
+      ><br />
+      <span style="opacity: 0.5"
+        >当アプリでは「ツイートの送信」以外は一切使いません。</span
+      >
+    </p>
     {% endif %}
   </div>
 </div>
 
-<div class="border border-light p-3 mb-4 saved" style="display: none;">
+<div class="border border-light p-3 mb-4 saved" style="display: none">
   <div class="text-center">
     <form method="post" name="saveform" action="/save">
-      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
     </form>
-    <button type="button" class="btn btn-primary"><a href="javascript:saveform.submit()"><h3>画像を保存する</h3></a></button>
-    <br>
-    <p class="inlinetext">作成した画像をいつでも見返せるようになります。
+    <button type="button" class="btn btn-primary">
+      <a href="javascript:saveform.submit()"><h3>画像を保存する</h3></a>
+    </button>
+    <br />
+    <p class="inlinetext">作成した画像をいつでも見返せるようになります。</p>
   </div>
 </div>
 
 <div class="border border-light p-3 mb-4">
   <div class="text-center">
-    <button type="button" class="btn btn-primary"><a href="/history"><h3>過去に作成した画像</h3></a></button>
+    <button type="button" class="btn btn-primary">
+      <a href="/history"><h3>過去に作成した画像</h3></a>
+    </button>
   </div>
 </div>
-<br/>
+<br />
 
 <div class="border border-light p-3 mb-4">
-
   <div class="text-center">
-    <button type="button" class="btn btn-primary"><a onclick="logout()"><h5>ログアウト</h5></a></button>
+    <button type="button" class="btn btn-primary">
+      <a onclick="logout()"><h5>ログアウト</h5></a>
+    </button>
   </div>
-
 </div>
 
 <style type="text/css">
@@ -63,13 +83,17 @@
     height: 30px;
     border: 3px solid #000000;
     border-top-color: transparent;
-    border-radius: 50%;  
-    animation: spin .4s infinite linear;
+    border-radius: 50%;
+    animation: spin 0.4s infinite linear;
   }
-  
+
   @keyframes spin {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>
 <script src="/static/js/authorized.js"></script>
