@@ -9,7 +9,7 @@ import tempfile
 
 @pytest.fixture
 def client():
-    db_fd, app.config["DATABASE_URL"] = tempfile.mkstemp()
+    db_fd, app.config["SQLALCHEMY_DATABASE_URI"] = tempfile.mkstemp()
     app.config["TESTING"] = True
 
     with app.test_client() as client:
@@ -18,7 +18,7 @@ def client():
         yield client
 
     os.close(db_fd)
-    os.unlink(app.config["DATABASE_URL"])
+    os.unlink(app.config["SQLALCHEMY_DATABASE_URI"])
 
 
 """
