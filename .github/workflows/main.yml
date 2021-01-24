@@ -27,6 +27,7 @@ jobs:
         pip install -r requirements-test.txt
     - name: Copy font file
       run: |
+        mkdir -p /app/.fonts
         cp ./.fonts/ipaexg.ttf /app/.fonts/ipaexg.ttf
     - name: Lint with flake8
       run: |
