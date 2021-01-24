@@ -1,24 +1,6 @@
 from flask_dance.consumer.storage import MemoryStorage
 from spotify_wordcloud import app
 from spotify_wordcloud.api.auth import spotify_bp
-import pytest
-
-import os
-import tempfile
-
-
-@pytest.fixture
-def client():
-    db_fd, app.config["DATABASE_URL"] = tempfile.mkstemp()
-    app.config["TESTING"] = True
-
-    with app.test_client() as client:
-        with app.app_context():
-            app.init_db()
-        yield client
-
-    os.close(db_fd)
-    os.unlink(app.config["DATABASE_URL"])
 
 
 """

@@ -29,6 +29,9 @@ jobs:
       run: |
         sudo mkdir -p /app/.fonts
         sudo cp ./.fonts/ipaexg.ttf /app/.fonts/ipaexg.ttf
+    - name: Initialize DB
+      run: |
+        docker-compose up -d
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
