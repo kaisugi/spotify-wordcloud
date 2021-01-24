@@ -2,7 +2,7 @@
 {% block body %}
 <br>
 <div class="result">
-  <img src="https://res.cloudinary.com/hellorusk/image/upload/v1611155857/loading.svg"> ワードクラウドを作成中....
+  <div class="loading"></div> ワードクラウドを作成中....
 </div>
 <br>
 <img class="generated" width="100%"/>
@@ -53,5 +53,24 @@
   </div>
 
 </div>
+
+<style type="text/css">
+  .loading {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #000000;
+    border-top-color: transparent;
+    border-radius: 50%;  
+    animation: spin .4s infinite linear;
+  }
+  
+  @keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+</style>
 <script src="/static/js/authorized.js"></script>
 {% endblock %}
