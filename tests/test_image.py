@@ -3,9 +3,7 @@ from spotify_wordcloud import app
 from spotify_wordcloud.api.auth import spotify_bp
 
 
-"""
-test GET /generate
-"""
+# GET /generate
 
 
 def test_generate_unauthorized(monkeypatch):
@@ -33,9 +31,7 @@ def test_generate_authorized(monkeypatch):
     assert res.mimetype == "image/png"
 
 
-"""
-test GET /regenerate
-"""
+# GET /regenerate
 
 
 def test_regenerate_unauthorized(monkeypatch):

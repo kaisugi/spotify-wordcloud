@@ -28,9 +28,7 @@ def client_with_dummy_file():
     db.session.commit()
 
 
-"""
-test GET /history
-"""
+# GET /history
 
 
 def test_history_unauthorized(monkeypatch):

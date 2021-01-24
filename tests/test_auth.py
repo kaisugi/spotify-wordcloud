@@ -3,9 +3,7 @@ from spotify_wordcloud import app
 from spotify_wordcloud.api.auth import spotify_bp
 
 
-"""
-test GET /
-"""
+# GET /
 
 
 def test_index_unauthorized(monkeypatch):
@@ -51,9 +49,7 @@ def test_index_authorized_with_twitter(monkeypatch):
     assert "ツイートする！" in text
 
 
-"""
-test GET /
-"""
+# GET /login
 
 
 def test_login(monkeypatch):
@@ -67,9 +63,7 @@ def test_login(monkeypatch):
     assert res.headers["Location"] == "https://example.com/login/spotify"
 
 
-"""
-test GET /twitter_auth
-"""
+# GET /twitter_auth
 
 
 def test_twitter_auth_unauthorized(monkeypatch):
@@ -92,9 +86,7 @@ def test_twitter_auth_authorized(monkeypatch):
     assert res.status_code == 302
 
 
-"""
-test GET /logout
-"""
+# GET /logout
 
 
 def test_logout(monkeypatch):
