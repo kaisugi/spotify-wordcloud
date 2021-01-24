@@ -32,6 +32,23 @@ def test_index_authorized(monkeypatch):
     text = res.get_data(as_text=True)
     assert "例えば、こんなワードクラウドが作れます。" not in text
     assert "過去に作成した画像" in text
+    assert "ツイートする！" not in text
+
+
+def test_index_authorized_with_twitter(monkeypatch):
+    storage = MemoryStorage({"access_token": "fake-token"})
+    monkeypatch.setattr(spotify_bp, "storage", storage)
+
+    with app.test_client() as client:
+        with client.session_transaction() as session:
+            session["oauth_verifier"] = "dummy"
+        res = client.get("/", base_url="https://example.com")
+
+    assert res.status_code == 200
+    text = res.get_data(as_text=True)
+    assert "例えば、こんなワードクラウドが作れます。" not in text
+    assert "過去に作成した画像" in text
+    assert "ツイートする！" in text
 
 
 """
