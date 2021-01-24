@@ -3,13 +3,12 @@ var result = document.querySelector('.result');
 var tweetArea = document.querySelector('.tweet');
 var savedArea = document.querySelector('.saved');
 
-var generatingMessage = '<img src="https://res.cloudinary.com/hellorusk/image/upload/v1611155857/loading.svg"> ワードクラウドを作成中....';
 var successMessage = "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）";
 var failureMessage = "ワードクラウドの作成に失敗しました。お気に入りのアーティストのデータが不足している可能性があります。";
 var retryMessage = "違うデザインで作り直す";
 
 function generate() {
-  result.innerHTML = generatingMessage;
+  result.innerHTML = '<img src="https://res.cloudinary.com/hellorusk/image/upload/v1611155857/loading.svg?' + (new Date).getTime() + '"> ワードクラウドを作成中....';
 
   fetch("/generate", {
     cache:"no-cache",
@@ -42,7 +41,7 @@ function generate() {
 generate();
 
 function regenerate() {
-  result.innerHTML = generatingMessage;
+  result.innerHTML = '<img src="https://res.cloudinary.com/hellorusk/image/upload/v1611155857/loading.svg?' + (new Date).getTime() + '"> ワードクラウドを作成中....';
 
   fetch("/regenerate", {
     cache:"no-cache",
