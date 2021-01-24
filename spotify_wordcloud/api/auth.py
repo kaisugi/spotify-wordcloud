@@ -52,20 +52,24 @@ def logout():
 
 @app.route("/twitter_auth")
 def twitter_auth():
-    redirect_url = ""
-    auth = tweepy.OAuthHandler(
-        current_app.config["TWITTER_API_KEY"],
-        current_app.config["TWITTER_API_SECRET"],
-        current_app.config["CALLBACK_URL"],
-    )
+    if spotify.authorized:
+        redirect_url = ""
+        auth = tweepy.OAuthHandler(
+            current_app.config["TWITTER_API_KEY"],
+            current_app.config["TWITTER_API_SECRET"],
+            current_app.config["CALLBACK_URL"],
+        )
 
-    try:
-        redirect_url = auth.get_authorization_url()
-        session["request_token"] = auth.request_token
-    except tweepy.TweepError as e:
-        logging.error(str(e))
+        try:
+            redirect_url = auth.get_authorization_url()
+            session["request_token"] = auth.request_token
+        except tweepy.TweepError as e:
+            logging.error(str(e))
 
-    return redirect(redirect_url)
+        return redirect(redirect_url)
+
+    else:
+        return Response(status=401)
 
 
 @app.route("/callback")
