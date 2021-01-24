@@ -45,5 +45,6 @@ jobs:
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
       run: |
         python -m pytest
