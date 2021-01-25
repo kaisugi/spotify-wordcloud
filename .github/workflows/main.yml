@@ -42,4 +42,4 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
         run: |
-          python -m pytest
+          TESTING=True python -m pytest
