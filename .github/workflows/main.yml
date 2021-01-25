@@ -39,7 +39,7 @@ jobs:
       - name: Test with pytest
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
           AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
         run: |
-          python -m pytest
+          TESTING=True python -m pytest
