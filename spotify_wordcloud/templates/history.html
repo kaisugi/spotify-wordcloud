@@ -12,7 +12,8 @@
       <img src="{{imgsrc}}" width="100%" />
       <div class="card-body">
         <p class="card-text">
-          {{ item.created_at.strftime('%Y年%m月%d日 %H:%M:%S') }} 作成
+          {% set timestamp_jst = utc_to_jst(item.created_at) %}
+          {{ timestamp_jst.strftime('%Y年%m月%d日 %H:%M:%S') }} 作成
         </p>
         <form
           action="{{deletesrc}}"

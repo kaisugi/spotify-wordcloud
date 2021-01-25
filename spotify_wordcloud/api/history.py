@@ -9,12 +9,17 @@ from flask import (
 )
 from flask_dance.contrib.spotify import spotify
 
+from datetime import timedelta
 import logging
 
 from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
 
 app = Blueprint("history", __name__, url_prefix="/")
+
+
+def utc_to_jst(timestamp_utc):
+    return timestamp_utc + timedelta(hours=+9)
 
 
 @app.route("/history")
@@ -33,6 +38,7 @@ def history():
                 "history.html",
                 pictures=pictures,
                 aws_s3_url=current_app.config["AWS_S3_URL"],
+                utc_to_jst=utc_to_jst,
             )
 
         except Exception as e:
