@@ -4,7 +4,7 @@ var tweetArea = document.querySelector(".tweet");
 var savedArea = document.querySelector(".saved");
 
 var generatingMessage =
-  '<div class="loading"></div> ワードクラウドを作成中....';
+  '<div class="loading"></div> <span>ワードクラウドを作成中....</span><span>（最大10秒程度かかります）</span>';
 var successMessage =
   "ワードクラウドが作成されました！（直近6ヶ月の記録をもとに作成されています）";
 var failureMessage =
