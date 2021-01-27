@@ -184,7 +184,7 @@ def tweet():
             res = api.media_upload(filename)
             api.update_status(
                 "Spotifyで自己紹介！\n#Spotify_WordCloud\n"
-                + "https://spotify-wordcloud.herokuapp.com/",
+                + "https://spotify-word.cloud/",
                 media_ids=[res.media_id],
             )
 
