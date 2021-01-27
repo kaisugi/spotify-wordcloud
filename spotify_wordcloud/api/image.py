@@ -182,9 +182,15 @@ def tweet():
 
             filename = f"/tmp/{ha}.png"
             res = api.media_upload(filename)
+
+            message_candidates = [
+                "Spotifyで自己紹介！",
+                "Spotifyでこんなアーティストを聴いているよ",
+                "Spotifyでワードクラウドを作ってみませんか",
+            ]
+
             api.update_status(
-                "Spotifyで自己紹介！\n#Spotify_WordCloud\n"
-                + "https://spotify-word.cloud/",
+                f"{random.choice(message_candidates)}\n#Spotify_WordCloud\nhttps://spotify-word.cloud/",
                 media_ids=[res.media_id],
             )
 
