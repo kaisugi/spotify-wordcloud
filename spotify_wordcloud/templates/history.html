@@ -9,7 +9,7 @@
 
   <div class="col-md-6">
     <div class="card mb-4 shadow-sm">
-      <img src="{{imgsrc}}" width="100%" />
+      <img src="{{imgsrc}}" width="100%" loading="lazy" />
       <div class="card-body">
         <p class="card-text">
           {% set timestamp_jst = utc_to_jst(item.created_at) %}
