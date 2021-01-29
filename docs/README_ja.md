@@ -15,7 +15,7 @@
 Spotify WordCloud はあなたのお気に入りのアーティストの名前からワードクラウドを作るアプリです.  
 ワードクラウドをその場でツイートすることができます. また, ワードクラウドを保存して, あとから見返すこともできます.
 
-[spotify-word.cloud](https://spotify-word.cloud)
+👉 **[spotify-word.cloud](https://spotify-word.cloud)**  
 
 ## Test locally
 

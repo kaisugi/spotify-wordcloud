@@ -16,7 +16,7 @@ English · [日本語](./docs/README_ja.md)
 Spotify WordCloud is an app that lets you create a word cloud from the names of your favorite artists.  
 You can tweet the word cloud on the spot. You can also save the word cloud and look back at it later.
 
-[spotify-word.cloud](https://spotify-word.cloud) 
+👉 **[spotify-word.cloud](https://spotify-word.cloud)**  
 (currently only available in Japanese)
 
 ## Test locally
