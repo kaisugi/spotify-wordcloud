@@ -4,11 +4,11 @@ from flask_dance.contrib.spotify import spotify
 import tweepy
 from wordcloud import WordCloud
 
-from datetime import datetime
 import hashlib
 import logging
 from os import path, getcwd
 import random
+import uuid
 
 from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
@@ -123,10 +123,7 @@ def save():
             if not path.exists(f"/tmp/{ha}.png"):
                 image_generation(text, ha)
 
-            # set filename from timestamp
-            t_today = datetime.now()
-            s_today = t_today.strftime("%Y/%m/%d %H:%M*%S")
-            s3_filename = hashlib.md5(s_today.encode("utf-8")).hexdigest()
+            s3_filename = str(uuid.uuid4())
 
             s3_client.upload_file(
                 f"/tmp/{ha}.png",
