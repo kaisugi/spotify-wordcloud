@@ -4,7 +4,7 @@
 <br />
 <div class="row">
   {% if pictures|length > 0 %} {% for item in pictures %} {% set imgsrc =
-  aws_s3_url + "/" + item.file_name %} {% set deletesrc = "/history/" +
+  aws_s3_url + "/" + item.file_name.strip() %} {% set deletesrc = "/history/" +
   item.file_name.replace('.png', '') %}
 
   <div class="col-md-6">
