@@ -46,5 +46,6 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
+          CLOUD_STORAGE_BUCKET: ${{ secrets.CLOUD_STORAGE_BUCKET }}
         run: |
           TESTING=True python -m pytest

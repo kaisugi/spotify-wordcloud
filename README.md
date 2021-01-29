@@ -19,7 +19,7 @@ You can tweet the word cloud on the spot. You can also save the word cloud and l
 👉 **[spotify-word.cloud](https://spotify-word.cloud)**  
 (currently only available in Japanese)
 
-## Test locally
+## Local development
 
 ### Requirements
 
@@ -58,6 +58,14 @@ $ FLASK_DEBUG=True OAUTHLIB_INSECURE_TRANSPORT=1 python run.py
 ```
 
 and open `http://localhost:5000/`.
+
+## Test
+
+```
+$ TESTING=True python -m pytest
+```
+
+💡 If you'd like to test this project via GitHub Actions, you have to additionally configure `GCP_PROJECT_ID` and `GCP_SA_KEY` in the project secrets. See [this document](https://github.com/google-github-actions/setup-gcloud) for more detail.
 
 ## URL
 
