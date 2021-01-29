@@ -9,7 +9,7 @@
 
   <div class="col-md-6">
     <div class="card mb-4 shadow-sm">
-      <img src="{{imgsrc}}" width="100%" loading="lazy" />
+      <img class="lazyload" data-src="{{imgsrc}}" width="100%" />
       <div class="card-body">
         <p class="card-text">
           {% set timestamp_jst = utc_to_jst(item.created_at) %}
@@ -50,6 +50,8 @@
 <br />
 <br />
 <script type="text/javascript">
+  lazyload();
+  
   function checkSubmit() {
     return confirm("削除してもよろしいですか？");
   }
