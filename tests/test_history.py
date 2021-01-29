@@ -8,21 +8,18 @@ import pytest
 
 @pytest.fixture
 def client():
-    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
-    db.session.commit()
-
     with app.test_client() as client:
         with app.app_context():
             db.create_all()
         yield client
 
+    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
+    db.session.commit()
+
 
 @pytest.fixture
 def client_with_dummy_file():
     app.config["WTF_CSRF_ENABLED"] = False
-
-    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
-    db.session.commit()
 
     with app.test_client() as client:
         with app.app_context():
@@ -31,6 +28,9 @@ def client_with_dummy_file():
             db.session.add(record)
             db.session.commit()
         yield client
+
+    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
+    db.session.commit()
 
 
 # GET /history

@@ -10,13 +10,13 @@ import pytest
 def client():
     app.config["WTF_CSRF_ENABLED"] = False
 
-    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
-    db.session.commit()
-
     with app.test_client() as client:
         with app.app_context():
             db.create_all()
         yield client
+
+    db.session.query(Pictures).filter(Pictures.user_id == "dummy").delete()
+    db.session.commit()
 
 
 # GET /generate
