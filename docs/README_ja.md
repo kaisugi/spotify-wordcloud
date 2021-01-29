@@ -25,7 +25,7 @@ Spotify WordCloud はあなたのお気に入りのアーティストの名前�
 - Python 3.6, 3.7, or 3.8
 - Spotify Account
 - Twitter Account
-- AWS Account (to save images in Amazon S3)
+- GCP Account (to save images in Google Cloud Storage)
 
 ### Installation
 
