@@ -19,7 +19,7 @@ s3_client = boto3.client("s3", region_name="ap-northeast-1")
 app = Blueprint("image", __name__, url_prefix="/")
 
 
-def hash_generation(session, text):
+def text_and_hash_generation(session):
     data = spotify.get("/v1/me/top/artists?limit=50").json()
 
     artists = []
@@ -29,12 +29,10 @@ def hash_generation(session, text):
             artists.append(item["name"])
 
     random.shuffle(artists)
-    text += " ".join(artists)
+    text = " ".join(artists)
     session["spotify_wordcloud_text"] = text  # save text
     ha = hashlib.md5(text.encode("utf-8")).hexdigest()
     session["spotify_wordcloud_hash"] = ha  # save hash
-
-    return text
 
 
 def image_generation(text, ha):
@@ -61,10 +59,8 @@ def image_generation(text, ha):
 def generate():
     if spotify.authorized:
         try:
-            text = ""
-
             if "spotify_wordcloud_text" not in session:
-                text = hash_generation(session, text)
+                text_and_hash_generation(session)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
@@ -88,10 +84,8 @@ def generate():
 def regenerate():
     if spotify.authorized:
         try:
-            text = ""
-
             if "spotify_wordcloud_text" not in session:
-                text = hash_generation(session, text)
+                text_and_hash_generation(session)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
@@ -112,10 +106,8 @@ def regenerate():
 def save():
     if spotify.authorized:
         try:
-            text = ""
-
             if "spotify_wordcloud_text" not in session:
-                text = hash_generation(session, text)
+                text_and_hash_generation(session)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
@@ -153,10 +145,8 @@ def save():
 def tweet():
     if spotify.authorized:
         try:
-            text = ""
-
             if "spotify_wordcloud_text" not in session:
-                text = hash_generation(session, text)
+                text_and_hash_generation(session)
 
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
