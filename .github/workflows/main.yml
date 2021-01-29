@@ -15,6 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -40,8 +46,6 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
-          AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CLOUD_STORAGE_BUCKET: ${{ secrets.CLOUD_STORAGE_BUCKET }}
         run: |
           TESTING=True python -m pytest

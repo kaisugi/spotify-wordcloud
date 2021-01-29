@@ -1,6 +1,6 @@
-import boto3
 from flask import Blueprint, Response, current_app, render_template, send_file, session
 from flask_dance.contrib.spotify import spotify
+from google.cloud import storage
 import tweepy
 from wordcloud import WordCloud
 
@@ -13,7 +13,7 @@ import uuid
 from spotify_wordcloud.app import db
 from spotify_wordcloud.models import Pictures
 
-s3_client = boto3.client("s3", region_name="ap-northeast-1")
+gcs = storage.Client()
 
 
 app = Blueprint("image", __name__, url_prefix="/")
@@ -115,18 +115,14 @@ def save():
             if not path.exists(f"/tmp/{ha}.png"):
                 image_generation(text, ha)
 
-            s3_filename = str(uuid.uuid4())
-
-            s3_client.upload_file(
-                f"/tmp/{ha}.png",
-                "spotify-wordcloud",
-                f"{s3_filename}.png",
-                ExtraArgs={"ACL": "public-read", "ContentType": "image/png"},
-            )
+            gcs_filename = str(uuid.uuid4())
+            bucket = gcs.get_bucket(current_app.config["CLOUD_STORAGE_BUCKET"])
+            blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
+            blob.upload_from_filename(f"/tmp/{ha}.png")
 
             # save to DB
             record = Pictures(
-                user_id=session["user_id"], file_name=f"{s3_filename}.png"
+                user_id=session["user_id"], file_name=f"{gcs_filename}.png"
             )
             db.session.add(record)
             db.session.commit()

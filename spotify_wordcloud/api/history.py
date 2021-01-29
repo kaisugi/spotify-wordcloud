@@ -37,7 +37,7 @@ def history():
             return render_template(
                 "history.html",
                 pictures=pictures,
-                aws_s3_url=current_app.config["AWS_S3_URL"],
+                cloud_storage_bucket=current_app.config["CLOUD_STORAGE_BUCKET"],
                 utc_to_jst=utc_to_jst,
             )
 
