@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_talisman import Talisman
-from flask_seasurf import SeaSurf
+from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_object("spotify_wordcloud.config")
 
-csrf = SeaSurf(app)
+csrf = CSRFProtect(app)
 
 if not app.config["FLASK_DEBUG"]:
     talisman = Talisman(

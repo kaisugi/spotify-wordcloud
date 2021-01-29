@@ -41,5 +41,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
           AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           TESTING=True python -m pytest
