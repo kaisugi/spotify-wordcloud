@@ -17,6 +17,12 @@ Spotify WordCloud はあなたのお気に入りのアーティストの名前�
 
 👉 **[spotify-word.cloud](https://spotify-word.cloud)**  
 
+<br>
+<div align="center">
+  <img src="diagram.png" width="80%">
+</div>
+<br>
+
 ## Local development
 
 ### Requirements

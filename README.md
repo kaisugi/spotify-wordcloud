@@ -19,6 +19,12 @@ You can tweet the word cloud on the spot. You can also save the word cloud and l
 👉 **[spotify-word.cloud](https://spotify-word.cloud)**  
 (currently only available in Japanese)
 
+<br>
+<div align="center">
+  <img src="./docs/diagram.png" width="80%">
+</div>
+<br>
+
 ## Local development
 
 ### Requirements
