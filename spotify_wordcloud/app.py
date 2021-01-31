@@ -1,9 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 
+
+def page_not_found(_):
+    return render_template("404.html"), 404
+
+
 app = Flask(__name__)
+app.register_error_handler(404, page_not_found)
 app.config.from_object("spotify_wordcloud.config")
 
 csrf = CSRFProtect(app)
