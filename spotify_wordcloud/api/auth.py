@@ -1,18 +1,13 @@
 from flask import (
     Blueprint,
-    Response,
-    current_app,
     redirect,
     render_template,
-    request,
     session,
     url_for,
 )
 import flask_dance.consumer
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
-import tweepy
 
-import logging
 
 spotify_bp = make_spotify_blueprint(scope="user-top-read")
 
@@ -31,10 +26,7 @@ app = Blueprint("auth", __name__, url_prefix="/")
 @app.route("/")
 def index():
     if spotify.authorized:
-        if "oauth_verifier" in session:
-            return render_template("authorized.html", twitter_authorized=True)
-        else:
-            return render_template("authorized.html", twitter_authorized=False)
+        return render_template("authorized.html")
     else:
         return render_template("unauthorized.html")
 
@@ -48,36 +40,3 @@ def login():
 def logout():
     session.clear()
     return redirect("/")
-
-
-@app.route("/twitter_auth")
-def twitter_auth():
-    if spotify.authorized:
-        redirect_url = ""
-        auth = tweepy.OAuthHandler(
-            current_app.config["TWITTER_API_KEY"],
-            current_app.config["TWITTER_API_SECRET"],
-            current_app.config["CALLBACK_URL"],
-        )
-
-        try:
-            redirect_url = auth.get_authorization_url()
-            session["request_token"] = auth.request_token
-        except tweepy.TweepError as e:
-            logging.error(str(e))
-
-        return redirect(redirect_url)
-
-    else:
-        return Response(status=401)
-
-
-@app.route("/callback")
-def callback():
-    try:
-        session["oauth_verifier"] = request.args.get("oauth_verifier")
-        return redirect("/")
-
-    except Exception as e:
-        logging.error(str(e))
-        return Response(status=500)

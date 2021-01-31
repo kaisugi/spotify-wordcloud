@@ -30,7 +30,6 @@ Spotify WordCloud はあなたのお気に入りのアーティストの名前�
 - Docker
 - Python 3.6, 3.7, or 3.8
 - Spotify Account
-- Twitter Account
 - GCP Account (to save images in Google Cloud Storage)
 
 ### Installation
@@ -78,9 +77,7 @@ $ TESTING=True python -m pytest
 | /                         | GET      | トップ画面の表示                                                                                                  |
 | /login                    | GET      | Spotify へのログイン                                                                                              |
 | /login/spotify/authorized | GET      | Spotify OAuth 認証のコールバック                                                                                  |
-| /twitter_auth             | GET      | Twitter へのログイン                                                                                              |
-| /callback                 | GET      | Twitter OAuth 認証のコールバック                                                                                  |
-| /logout                   | GET      | 全てのログアウト（セッションの破棄）                                                                              |
+| /logout                   | GET    | ログアウト                                                                                                 |
 | /generate                 | GET      | ワードクラウド画像を作成し, そのバイナリを返す API                                                                |
 | /regenerate               | GET      | ワードクラウド画像を作成し, そのバイナリを返す API （ generate と異なり, キャッシュがあっても強制的に再作成する） |
 | /save                     | POST     | ワードクラウド画像を作成し, 画像を S3 にアップロードした上で, ユーザー ID, 作成日時とともに DB に保存する         |

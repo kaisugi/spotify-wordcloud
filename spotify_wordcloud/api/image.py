@@ -1,7 +1,14 @@
-from flask import Blueprint, Response, current_app, render_template, send_file, session
+from flask import (
+    Blueprint,
+    Response,
+    current_app,
+    redirect,
+    render_template,
+    send_file,
+    session,
+)
 from flask_dance.contrib.spotify import spotify
 from google.cloud import storage
-import tweepy
 from wordcloud import WordCloud
 
 import hashlib
@@ -150,34 +157,13 @@ def tweet():
             if not path.exists(f"/tmp/{ha}.png"):
                 image_generation(text, ha)
 
-            # Upload Media to Twitter
-            auth = tweepy.OAuthHandler(
-                current_app.config["TWITTER_API_KEY"],
-                current_app.config["TWITTER_API_SECRET"],
-                current_app.config["CALLBACK_URL"],
-            )
-            token = session.pop("request_token", None)
-            auth.request_token = token
-            verifier = session.pop("oauth_verifier", None)
-            auth.get_access_token(verifier)
+            gcs_filename = str(uuid.uuid4())
+            bucket = gcs.get_bucket(current_app.config["CLOUD_STORAGE_BUCKET"])
+            blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
+            blob.upload_from_filename(f"/tmp/{ha}.png")
 
-            api = tweepy.API(auth)
-
-            filename = f"/tmp/{ha}.png"
-            res = api.media_upload(filename)
-
-            message_candidates = [
-                "Spotifyで自己紹介！",
-                "Spotifyでこんなアーティストを聴いているよ",
-                "Spotifyでワードクラウドを作ってみませんか",
-            ]
-
-            api.update_status(
-                f"{random.choice(message_candidates)}\n#Spotify_WordCloud\nhttps://spotify-word.cloud/",
-                media_ids=[res.media_id],
-            )
-
-            return render_template("result.html", result="ツイートに成功しました。")
+            message = f"Spotify+WordCloud+でワードクラウドを作りました！%0D%0A%23Spotify_WordCloud%0D%0Ahttps://spotify-wordcloud.herokuapp.com/share/{gcs_filename}"
+            return redirect(f"https://twitter.com/intent/tweet?text={message}")
 
         except Exception as e:
             logging.error(str(e))

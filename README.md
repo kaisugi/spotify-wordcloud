@@ -32,7 +32,6 @@ You can tweet the word cloud on the spot. You can also save the word cloud and l
 - Docker
 - Python 3.6, 3.7, or 3.8
 - Spotify Account
-- Twitter Account
 - GCP Account (to save images in Google Cloud Storage)
 
 ### Installation
@@ -80,9 +79,7 @@ $ TESTING=True python -m pytest
 | /                         | GET    | Display the top screen                                                                                                        |
 | /login                    | GET    | Log in to Spotify                                                                                                             |
 | /login/spotify/authorized | GET    | Callback for Spotify OAuth authentication                                                                                     |
-| /twitter_auth             | GET    | Log in to Twitter                                                                                                             |
-| /callback                 | GET    | Callback for Twitter OAuth authentication                                                                                     |
-| /logout                   | GET    | Log out all (destroy session)                                                                                                 |
+| /logout                   | GET    | Log out                                                                                                 |
 | /generate                 | GET    | Create a word cloud image and return its binary                                                                               |
 | /regenerate               | GET    | Create a word cloud image and return its binary <br>(Unlike /generate method, it forces re-creation even if there is a cache) |
 | /save                     | POST   | Create a word cloud image, upload the image to S3, and save it in the DB with user ID and creation date                       |

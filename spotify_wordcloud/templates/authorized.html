@@ -12,7 +12,6 @@
 
 <div class="border border-light p-3 mb-4 tweet" style="display: none">
   <div class="text-center">
-    {% if twitter_authorized %}
     <form method="post" name="tweetform" action="/tweet">
       <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
     </form>
@@ -21,15 +20,6 @@
         ><h3 style="color: #0c87cf">ツイートする！</h3></a
       >
     </button>
-    {% else %}
-    <button type="button" class="btn btn-primary" style="text-transform: none">
-      <a href="/twitter_auth"><h3>Twitter と連携する</h3></a>
-    </button>
-    <br />
-    <p class="inlinetext">
-      画像をツイートするには Twitter との連携が必要です。
-    </p>
-    {% endif %}
   </div>
 </div>
 
