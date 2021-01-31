@@ -112,3 +112,31 @@ def test_save_authorized(client, monkeypatch):
     text = res2.get_data(as_text=True)
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" not in text
+
+
+# POST /tweet
+
+
+def test_tweet_unauthorized(client, monkeypatch):
+    storage = MemoryStorage()
+    monkeypatch.setattr(spotify_bp, "storage", storage)
+
+    with app.test_client() as client:
+        res = client.post("/tweet", base_url="https://example.com")
+
+    assert res.status_code == 401
+
+
+def test_tweet_authorized(client, monkeypatch):
+    storage = MemoryStorage({"access_token": "fake-token"})
+    monkeypatch.setattr(spotify_bp, "storage", storage)
+
+    with app.test_client() as client:
+        with client.session_transaction() as session:
+            session["user_id"] = "dummy"
+            session["spotify_wordcloud_text"] = "test1 test2 test3"
+            session["spotify_wordcloud_hash"] = "test"
+        res = client.post("/tweet", base_url="https://example.com")
+
+    assert res.status_code == 302
+    assert res.headers["Location"].startswith("https://twitter.com/")
