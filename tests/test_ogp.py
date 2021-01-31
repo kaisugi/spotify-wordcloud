@@ -8,8 +8,10 @@ def test_ogp(monkeypatch):
     monkeypatch.setattr(spotify_bp, "storage", storage)
 
     with app.test_client() as client:
-        res = client.get("/share/bfbe015a6d6318dd2b50b3c9918f4cdf", base_url="https://example.com")
+        res = client.get(
+            "/share/bfbe015a6d6318dd2b50b3c9918f4cdf", base_url="https://example.com"
+        )
 
     assert res.status_code == 200
     text = res.get_data(as_text=True)
-    assert "/wordclouds/bfbe015a6d6318dd2b50b3c9918f4cdf.png\"" in text
+    assert '/wordclouds/bfbe015a6d6318dd2b50b3c9918f4cdf.png"' in text
