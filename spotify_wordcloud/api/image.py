@@ -162,7 +162,7 @@ def tweet():
             blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
             blob.upload_from_filename(f"/tmp/{ha}.png")
 
-            message = f"Spotify+WordCloud+でワードクラウドを作りました！%0D%0A%23Spotify_WordCloud%0D%0Ahttps://spotify-word.cloud/share/{gcs_filename}"
+            message = f"%0D%0ASpotify+WordCloud+でワードクラウドを作りました！%0D%0A%23Spotify_WordCloud%0D%0Ahttps://spotify-word.cloud/share/{gcs_filename}"
             return redirect(f"https://twitter.com/intent/tweet?text={message}")
 
         except Exception as e:
