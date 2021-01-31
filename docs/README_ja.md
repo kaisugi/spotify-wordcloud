@@ -85,6 +85,7 @@ $ TESTING=True python -m pytest
 | /regenerate               | GET      | ワードクラウド画像を作成し, そのバイナリを返す API （ generate と異なり, キャッシュがあっても強制的に再作成する） |
 | /save                     | POST     | ワードクラウド画像を作成し, 画像を S3 にアップロードした上で, ユーザー ID, 作成日時とともに DB に保存する         |
 | /tweet                    | POST     | ワードクラウド画像を作成し, ツイートする                                                                          |
+| /share/:file_hash         | GET    | OGP画像用のエントリ |
 | /history                  | GET      | 過去に作成した画像一覧の表示                                                                                      |
 | /history/:file_hash       | DELETE   | 指定された画像の削除                                                                                              |
 

@@ -87,6 +87,7 @@ $ TESTING=True python -m pytest
 | /regenerate               | GET    | Create a word cloud image and return its binary <br>(Unlike /generate method, it forces re-creation even if there is a cache) |
 | /save                     | POST   | Create a word cloud image, upload the image to S3, and save it in the DB with user ID and creation date                       |
 | /tweet                    | POST   | Create a word cloud image and tweet it                                                                                        |
+| /share/:file_hash         | GET    | Entry for Open Graph Protocol |
 | /history                  | GET    | Display the list of images created in the past                                                                                |
 | /history/:file_hash       | DELETE | Delete the specified image                                                                                                    |
 
