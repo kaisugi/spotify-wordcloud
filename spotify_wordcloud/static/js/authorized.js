@@ -2,6 +2,7 @@ var myImage = document.querySelector(".generated");
 var result = document.querySelector(".result");
 var tweetArea = document.querySelector(".tweet");
 var savedArea = document.querySelector(".saved");
+var saveImageText = document.querySelector(".saveimagetext");
 
 var generatingMessage =
   '<div class="loading"></div> <span>ワードクラウドを作成中....</span><span>（最大10秒程度かかります）</span>';
@@ -73,6 +74,11 @@ function regenerate() {
     .catch((e) => {
       result.innerHTML = failureMessage;
     });
+}
+
+function afterSubmission() {
+  saveImageText.innerHTML = "<h3>保存中...</h3>"
+  saveImageText.setAttribute("style", "color: black;")
 }
 
 function logout() {

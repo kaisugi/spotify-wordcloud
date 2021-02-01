@@ -30,8 +30,8 @@
     <form method="post" name="saveform" action="/save">
       <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
     </form>
-    <button type="button" class="btn btn-primary">
-      <a href="javascript:saveform.submit()"><h3>画像を保存する</h3></a>
+    <button type="button" class="btn btn-primary saveimagetext">
+      <a href="javascript:saveform.submit()" onclick="afterSubmission()"><h3>画像を保存する</h3></a>
     </button>
     <br />
     <p class="inlinetext">作成した画像をいつでも見返せるようになります。</p>
