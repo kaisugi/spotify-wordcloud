@@ -144,7 +144,7 @@ def save():
         return Response(status=401)
 
 
-@app.route("/tweet", methods=["POST"])
+@app.route("/shareTwitter", methods=["POST"])
 def tweet():
     if spotify.authorized:
         try:

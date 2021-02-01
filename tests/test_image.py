@@ -116,20 +116,20 @@ def test_save_authorized(client, monkeypatch):
     assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
 
 
-# POST /tweet
+# POST /shareTwitter
 
 
-def test_tweet_unauthorized(client, monkeypatch):
+def test_share_twitter_unauthorized(client, monkeypatch):
     storage = MemoryStorage()
     monkeypatch.setattr(spotify_bp, "storage", storage)
 
     with app.test_client() as client:
-        res = client.post("/tweet", base_url="https://example.com")
+        res = client.post("/shareTwitter", base_url="https://example.com")
 
     assert res.status_code == 401
 
 
-def test_tweet_authorized(client, monkeypatch):
+def test_share_twitter_authorized(client, monkeypatch):
     storage = MemoryStorage({"access_token": "fake-token"})
     monkeypatch.setattr(spotify_bp, "storage", storage)
 
@@ -138,7 +138,7 @@ def test_tweet_authorized(client, monkeypatch):
             session["user_id"] = "dummy"
             session["spotify_wordcloud_text"] = "test1 test2 test3"
             session["spotify_wordcloud_hash"] = "test"
-        res = client.post("/tweet", base_url="https://example.com")
+        res = client.post("/shareTwitter", base_url="https://example.com")
 
     assert res.status_code == 302
     assert res.headers["Location"].startswith("https://twitter.com/")
