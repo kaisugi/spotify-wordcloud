@@ -17,7 +17,10 @@ def test_index_unauthorized(monkeypatch):
     text = res.get_data(as_text=True)
     assert "例えば、こんなワードクラウドが作れます。" in text
     assert "過去に作成した画像" not in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )
 
 
 def test_index_authorized(monkeypatch):
@@ -32,7 +35,10 @@ def test_index_authorized(monkeypatch):
     assert "例えば、こんなワードクラウドが作れます。" not in text
     assert "過去に作成した画像" in text
     assert "ツイートする！" in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )
 
 
 # GET /login

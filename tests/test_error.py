@@ -13,4 +13,7 @@ def test_error(monkeypatch):
     assert res.status_code == 404
     text = res.get_data(as_text=True)
     assert "このページはすでに削除されているか、URLが間違っている可能性があります。" in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )

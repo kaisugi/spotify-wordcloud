@@ -60,7 +60,10 @@ def test_history_authorized(client, monkeypatch):
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" in text
     assert "test.png" not in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )
 
 
 def test_history_authorized_with_dummy_file(client_with_dummy_file, monkeypatch):
@@ -77,7 +80,10 @@ def test_history_authorized_with_dummy_file(client_with_dummy_file, monkeypatch)
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" not in text
     assert "test.png" in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )
 
 
 # DELETE /history/:file_hash
@@ -103,4 +109,7 @@ def test_delete(client_with_dummy_file, monkeypatch):
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" in text
     assert "test.png" not in text
-    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
+    assert (
+        'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
+        in text
+    )
