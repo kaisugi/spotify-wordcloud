@@ -15,3 +15,4 @@ def test_ogp(monkeypatch):
     assert res.status_code == 200
     text = res.get_data(as_text=True)
     assert '/wordclouds/bfbe015a6d6318dd2b50b3c9918f4cdf.png"' in text
+    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' not in text

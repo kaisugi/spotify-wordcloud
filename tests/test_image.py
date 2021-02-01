@@ -105,6 +105,7 @@ def test_save_authorized(client, monkeypatch):
     text = res0.get_data(as_text=True)
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" in text
+    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
 
     assert res1.status_code == 200
 
@@ -112,6 +113,7 @@ def test_save_authorized(client, monkeypatch):
     text = res2.get_data(as_text=True)
     assert "過去に作成した画像一覧" in text
     assert "まだ画像が保存されていません。" not in text
+    assert 'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"' in text
 
 
 # POST /tweet
