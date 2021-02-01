@@ -77,8 +77,7 @@ function regenerate() {
 }
 
 function afterSubmission() {
-  saveImageText.innerHTML = "<h3>保存中...</h3>"
-  saveImageText.setAttribute("style", "color: black;")
+  saveImageText.innerHTML = '<h3 style="color: black;">保存中...</h3>';
 }
 
 function logout() {
