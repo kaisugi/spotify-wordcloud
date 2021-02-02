@@ -15,7 +15,7 @@ def test_index_unauthorized(monkeypatch):
 
     assert res.status_code == 200
     text = res.get_data(as_text=True)
-    assert "よく聴いているアーティストの名前からワードクラウドを作ります。" in text
+    assert "よく聴いているアーティストの名前からワードクラウドを作ることができます。" in text
     assert "過去に作成した画像" not in text
     assert (
         'content="https://res.cloudinary.com/hellorusk/image/upload/v1611156028/top.png"'
@@ -32,7 +32,7 @@ def test_index_authorized(monkeypatch):
 
     assert res.status_code == 200
     text = res.get_data(as_text=True)
-    assert "よく聴いているアーティストの名前からワードクラウドを作ります。" not in text
+    assert "よく聴いているアーティストの名前からワードクラウドを作ることができます。" not in text
     assert "過去に作成した画像" in text
     assert "ツイートする！" in text
     assert (
