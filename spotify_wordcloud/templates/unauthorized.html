@@ -1,9 +1,16 @@
-{% extends "_base.html" %} {% block body %}
-<br />
-<h1>
-  あなたが最近よく聴いているアーティストの名前からワードクラウドを作るアプリです。
-</h1>
-<h4>例えば、こんなワードクラウドが作れます。</h4>
+{% extends "_base.html" %} 
+
+{% block topimage %}
+<div class="card" style="padding-top: 50px;">
+  <img class="card-img" src="https://res.cloudinary.com/hellorusk/image/upload/f_auto,q_auto,w_1000/v1612249207/dj" alt="">
+  <div class="card-img-overlay">
+    <p class="text-white"><span>お気に入りのアーティストを、</span><span>画像で記録する。</span></p>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<h4>よく聴いているアーティストの名前からワードクラウドを作ります。</h4>
 <br />
 <img
   src="https://res.cloudinary.com/hellorusk/image/upload/f_auto,q_auto,w_900/v1611156028/top"
