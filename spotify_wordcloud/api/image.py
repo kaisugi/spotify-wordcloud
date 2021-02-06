@@ -52,8 +52,8 @@ def image_generation(text, ha):
             freq[k] = 6
     wc = WordCloud(
         font_path=path.join(getcwd(), ".fonts/ipaexg.ttf"),
-        width=1024,
-        height=576,
+        width=1200,
+        height=630,
         colormap="cool",
         stopwords=stopwords,
         regexp=r"\S[\S']+",
