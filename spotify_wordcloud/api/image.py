@@ -59,7 +59,7 @@ def image_generation(text, ha):
         regexp=r"\S[\S']+",
     ).generate_from_frequencies(freq)
     image = wc.to_image()
-    image.save(f"/tmp/{ha}.png", format="png", optimize=True)
+    image.save(path.join(getcwd(), f"./generated/{ha}.png"), format="png", optimize=True)
 
 
 @app.route("/generate")
@@ -72,12 +72,12 @@ def generate():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
-            if path.exists(f"/tmp/{ha}.png"):
-                return send_file(f"/tmp/{ha}.png", mimetype="image/png")
+            if path.exists(path.join(getcwd(), f"./generated/{ha}.png")):
+                return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
 
             image_generation(text, ha)
 
-            return send_file(f"/tmp/{ha}.png", mimetype="image/png")
+            return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
 
         except Exception as e:
             logging.error(str(e))
@@ -99,7 +99,7 @@ def regenerate():
 
             image_generation(text, ha)
 
-            return send_file(f"/tmp/{ha}.png", mimetype="image/png")
+            return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
 
         except Exception as e:
             logging.error(str(e))
@@ -119,13 +119,13 @@ def save():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
-            if not path.exists(f"/tmp/{ha}.png"):
+            if not path.exists(path.join(getcwd(), f"./generated/{ha}.png")):
                 image_generation(text, ha)
 
             gcs_filename = str(uuid.uuid4())
             bucket = gcs.get_bucket(current_app.config["CLOUD_STORAGE_BUCKET"])
             blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
-            blob.upload_from_filename(f"/tmp/{ha}.png")
+            blob.upload_from_filename(path.join(getcwd(), f"./generated/{ha}.png"))
 
             # save to DB
             record = Pictures(
@@ -154,13 +154,13 @@ def tweet():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
-            if not path.exists(f"/tmp/{ha}.png"):
+            if not path.exists(path.join(getcwd(), f"./generated/{ha}.png")):
                 image_generation(text, ha)
 
             gcs_filename = str(uuid.uuid4())
             bucket = gcs.get_bucket(current_app.config["CLOUD_STORAGE_BUCKET"])
             blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
-            blob.upload_from_filename(f"/tmp/{ha}.png")
+            blob.upload_from_filename(path.join(getcwd(), f"./generated/{ha}.png"))
 
             message = f"%0D%0ASpotify+WordCloud+でワードクラウドを作りました！%0D%0A%23Spotify_WordCloud%0D%0Ahttps://spotify-word.cloud/share/{gcs_filename}"
             return redirect(f"https://twitter.com/intent/tweet?text={message}")

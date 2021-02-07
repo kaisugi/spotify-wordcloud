@@ -91,5 +91,5 @@ $ TESTING=True python -m pytest
 #### Learn more about creating word cloud images
 
 This app retrieves the list of top artists from Spotify's "Get a User's Top Artists" API, combines them into a single string, and creates a word cloud based on it.  
-The combined string is kept in the session. The image is placed in the `/tmp` folder with the hash of the string as the file name.  
-URLs related to image creation will always try to refer to these cached information first. However, /regenerate does not refer to the `/tmp` folder, and creates the image again.
+The combined string is kept in the session. The image is placed in the `./generated` folder with the hash of the string as the file name.  
+URLs related to image creation will always try to refer to these cached information first. However, /regenerate does not refer to the `./generated` folder, and creates the image again.
