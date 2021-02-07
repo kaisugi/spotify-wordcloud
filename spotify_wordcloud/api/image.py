@@ -59,7 +59,9 @@ def image_generation(text, ha):
         regexp=r"\S[\S']+",
     ).generate_from_frequencies(freq)
     image = wc.to_image()
-    image.save(path.join(getcwd(), f"./generated/{ha}.png"), format="png", optimize=True)
+    image.save(
+        path.join(getcwd(), f"./generated/{ha}.png"), format="png", optimize=True
+    )
 
 
 @app.route("/generate")
@@ -73,11 +75,15 @@ def generate():
             ha = session["spotify_wordcloud_hash"]
 
             if path.exists(path.join(getcwd(), f"./generated/{ha}.png")):
-                return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
+                return send_file(
+                    path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png"
+                )
 
             image_generation(text, ha)
 
-            return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
+            return send_file(
+                path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png"
+            )
 
         except Exception as e:
             logging.error(str(e))
@@ -99,7 +105,9 @@ def regenerate():
 
             image_generation(text, ha)
 
-            return send_file(path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png")
+            return send_file(
+                path.join(getcwd(), f"./generated/{ha}.png"), mimetype="image/png"
+            )
 
         except Exception as e:
             logging.error(str(e))
