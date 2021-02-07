@@ -4,4 +4,3 @@ __pycache__
 .env
 .gcloudignore
 config/
-*.png
