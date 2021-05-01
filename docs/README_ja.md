@@ -80,7 +80,7 @@ $ TESTING=True python -m pytest
 | /logout                   | GET    | ログアウト                                                                                                 |
 | /generate                 | GET      | ワードクラウド画像を作成し, そのバイナリを返す API                                                                |
 | /regenerate               | GET      | ワードクラウド画像を作成し, そのバイナリを返す API （ generate と異なり, キャッシュがあっても強制的に再作成する） |
-| /save                     | POST     | ワードクラウド画像を作成し, 画像を S3 にアップロードした上で, ユーザー ID, 作成日時とともに DB に保存する         |
+| /save                     | POST     | ワードクラウド画像を作成し, 画像を GCS にアップロードした上で, ユーザー ID, 作成日時とともに DB に保存する         |
 | /shareTwitter             | POST     | ワードクラウド画像を作成し, ツイート画面を開く                                                                          |
 | /share/:file_hash         | GET    | OGP画像用のエントリ |
 | /history                  | GET      | 過去に作成した画像一覧の表示                                                                                      |
