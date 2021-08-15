@@ -51,7 +51,7 @@ You can refer to `.env.example`.
 
 ```
 $ docker-compose up -d
-$ FLASK_APP=run.py flask shell
+$ FLASK_DEBUG=True FLASK_APP=run.py flask shell
 >>> from spotify_wordcloud.app import db
 >>> db.create_all()
 ```
