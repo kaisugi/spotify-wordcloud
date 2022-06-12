@@ -2,7 +2,7 @@ runtime: python38
 
 env: standard
 instance_class: F1
-entrypoint: gunicorn run:app
+entrypoint: gunicorn -w 2 run:app
 
 inbound_services:
 - warmup
