@@ -29,7 +29,7 @@ def history():
             pictures = (
                 db.session.query(Pictures)
                 .filter(Pictures.user_id == session["user_id"])
-                .order_by(Pictures.created_at.desc())
+                .order_by(Pictures.id.desc())
                 .all()
             )
             db.session.commit()
