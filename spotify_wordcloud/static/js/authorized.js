@@ -61,7 +61,9 @@ function regenerate() {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
       result.innerHTML = successMessage;
-      hideFirstArea.setAttribute("style", "display: block;");
+      for (const area of hideFirstAreas) {
+        area.setAttribute("style", "display: block;");
+      }
 
       var regenerate = document.createElement("a");
       regenerate.setAttribute("onclick", "regenerate()");
