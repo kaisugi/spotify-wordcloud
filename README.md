@@ -1,7 +1,6 @@
 # Spotify WordCloud
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/be84b303f25f4004bd8cc0bfca179bd2)](https://app.codacy.com/gh/HelloRusk/spotify-wordcloud?utm_source=github.com&utm_medium=referral&utm_content=HelloRusk/spotify-wordcloud&utm_campaign=Badge_Grade)
-[![Lint + Format + Test](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format%20+%20Test/badge.svg)](https://github.com/HelloRusk/spotify-wordcloud/actions) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/be84b303f25f4004bd8cc0bfca179bd2)](https://app.codacy.com/gh/HelloRusk/spotify-wordcloud?utm_source=github.com&utm_medium=referral&utm_content=HelloRusk/spotify-wordcloud&utm_campaign=Badge_Grade) [![Lint + Format + Test](https://github.com/HelloRusk/spotify-wordcloud/workflows/Lint%20+%20Format%20+%20Test/badge.svg)](https://github.com/HelloRusk/spotify-wordcloud/actions) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black) <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FHelloRusk%2Fupptime%2FHEAD%2Fapi%2Fspotify-word-cloud%2Fresponse-time.json">
 
 English · [日本語](./docs/README_ja.md)
 
