@@ -30,7 +30,7 @@ You can tweet the word cloud on the spot. You can also save the word cloud and l
 ### Requirements
 
 - Docker
-- Python 3.6, 3.7, or 3.8
+- Python 3.8
 - Spotify Account
 - GCP Account (to save images in Google Cloud Storage)
 
@@ -39,7 +39,8 @@ You can tweet the word cloud on the spot. You can also save the word cloud and l
 ```
 $ git clone https://github.com/HelloRusk/spotify-wordcloud
 $ cd spotify-wordcloud
-$ pip install -r requirements.txt
+$ poetry install
+$ poetry shell
 ```
 
 ### Configuration

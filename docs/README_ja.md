@@ -28,7 +28,7 @@ Spotify WordCloud はあなたのお気に入りのアーティストの名前�
 ### Requirements
 
 - Docker
-- Python 3.6, 3.7, or 3.8
+- Python 3.8
 - Spotify Account
 - GCP Account (to save images in Google Cloud Storage)
 
@@ -37,7 +37,8 @@ Spotify WordCloud はあなたのお気に入りのアーティストの名前�
 ```
 $ git clone https://github.com/HelloRusk/spotify-wordcloud
 $ cd spotify-wordcloud
-$ pip install -r requirements.txt
+$ poetry install
+$ poetry shell
 ```
 
 ### Configuration
