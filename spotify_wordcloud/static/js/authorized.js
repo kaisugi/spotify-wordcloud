@@ -1,6 +1,6 @@
 var myImage = document.querySelector(".generated");
 var result = document.querySelector(".result");
-var hideFirstArea = document.querySelector(".hide-first");
+var hideFirstAreas = document.querySelectorAll(".hide-first");
 var saveImageText = document.querySelector(".saveimagetext");
 
 var generatingMessage =
@@ -27,7 +27,9 @@ function generate() {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
       result.innerHTML = successMessage;
-      hideFirstArea.setAttribute("style", "display: block;");
+      for (const area of hideFirstAreas) {
+        area.setAttribute("style", "display: block;");
+      }
 
       var regenerate = document.createElement("a");
       regenerate.setAttribute("onclick", "regenerate()");
