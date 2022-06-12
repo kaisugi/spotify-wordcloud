@@ -1,7 +1,6 @@
 var myImage = document.querySelector(".generated");
 var result = document.querySelector(".result");
-var tweetArea = document.querySelector(".tweet");
-var savedArea = document.querySelector(".saved");
+var hideFirstArea = document.querySelector(".hide-first");
 var saveImageText = document.querySelector(".saveimagetext");
 
 var generatingMessage =
@@ -28,8 +27,7 @@ function generate() {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
       result.innerHTML = successMessage;
-      tweetArea.setAttribute("style", "display: block;");
-      savedArea.setAttribute("style", "display: block;");
+      hideFirstArea.setAttribute("style", "display: block;");
 
       var regenerate = document.createElement("a");
       regenerate.setAttribute("onclick", "regenerate()");
@@ -61,8 +59,7 @@ function regenerate() {
       var objectURL = URL.createObjectURL(myBlob);
       myImage.src = objectURL;
       result.innerHTML = successMessage;
-      tweetArea.setAttribute("style", "display: block;");
-      savedArea.setAttribute("style", "display: block;");
+      hideFirstArea.setAttribute("style", "display: block;");
 
       var regenerate = document.createElement("a");
       regenerate.setAttribute("onclick", "regenerate()");
