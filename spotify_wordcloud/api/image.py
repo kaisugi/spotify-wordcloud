@@ -2,6 +2,7 @@ from flask import (
     Blueprint,
     Response,
     current_app,
+    jsonify,
     redirect,
     render_template,
     send_file,
@@ -97,6 +98,8 @@ def regenerate():
             text = session["spotify_wordcloud_text"]
             ha = session["spotify_wordcloud_hash"]
 
+            if "gcs_image_link" in session:
+                session.pop("gcs_image_link")
             image_generation(text, ha)
 
             return send_file(f"/tmp/{ha}.png", mimetype="image/png")
@@ -140,6 +143,36 @@ def save():
             logging.error(str(e))
             return render_template("result.html", result="画像の保存に失敗しました。"), 500
 
+    else:
+        return Response(status=401)
+
+
+@app.route("/shareLink")
+def link():
+    if spotify.authorized:
+        try:
+            if "spotify_wordcloud_text" not in session:
+                text_and_hash_generation(session)
+
+            text = session["spotify_wordcloud_text"]
+            ha = session["spotify_wordcloud_hash"]
+
+            if not path.exists(f"/tmp/{ha}.png"):
+                image_generation(text, ha)
+
+            if "gcs_image_link" not in session:
+                gcs_filename = str(uuid.uuid4())
+                bucket = gcs.get_bucket(current_app.config["CLOUD_STORAGE_BUCKET"])
+                blob = bucket.blob(f"wordclouds/{gcs_filename}.png")
+                blob.upload_from_filename(f"/tmp/{ha}.png")
+                image_link = f"https://spotify-word.cloud/share/{gcs_filename}"
+                session["gcs_image_link"] = image_link
+
+            return jsonify({"link": session["gcs_image_link"]})
+
+        except Exception as e:
+            logging.error(str(e))
+            return render_template("result.html", result="画像付きリンクの取得に失敗しました。"), 500
     else:
         return Response(status=401)
 
