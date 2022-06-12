@@ -92,8 +92,8 @@ function imageLinkCopy() {
     })
     .then((data) => {
       navigator.clipboard.writeText(data["link"]).then(
-        success => alert("画像付きリンクをコピーしました。")
-      )
+        (success) => alert("画像付きリンクをコピーしました。")
+      );
     });
 }
 
