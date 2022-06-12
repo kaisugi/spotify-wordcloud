@@ -92,9 +92,10 @@ function imageLinkCopy() {
       return res.json();
     })
     .then((data) => {
-      navigator.clipboard.writeText(data["link"]).then(
-        (success) => alert("画像付きリンクをコピーしました。")
-      );
+      window.prompt("画像付きリンクを作成しました！\nこのリンクを LINE や Slack、Discord などに貼り付けるとワードクラウドも表示されます。", data["link"]);
+    })
+    .catch((e) => {
+      alert("エラーが発生しました。");
     });
 }
 
