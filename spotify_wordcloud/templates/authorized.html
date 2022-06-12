@@ -10,7 +10,7 @@
 <br />
 <br />
 
-<div class="border border-light p-3 mb-4 tweet" style="display: none">
+<div class="border border-light p-3 mb-4 hide-first" style="display: none">
   <div class="text-center">
     <form method="post" name="tweetform" action="/shareTwitter">
       <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="border border-light p-3 mb-4 saved" style="display: none">
+<div class="border border-light p-3 mb-4 hide-first" style="display: none">
   <div class="text-center">
     <form method="post" name="saveform" action="/save">
       <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<div class="border border-light p-3 mb-4">
+<div class="border border-light p-3 mb-4 hide-first" style="display: none">
   <div class="text-center">
     <button type="button" class="btn btn-primary">
       <a href="/history"><h3>過去に作成した画像</h3></a>
@@ -47,7 +47,7 @@
 </div>
 <br />
 
-<div class="border border-light p-3 mb-4">
+<div class="border border-light p-3 mb-4 hide-first" style="display: none">
   <div class="text-center">
     <button type="button" class="btn btn-primary">
       <a onclick="logout()"><h5>ログアウト</h5></a>
