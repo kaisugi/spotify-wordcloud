@@ -2,16 +2,16 @@ name: Lint + Format + Test
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [3.6, 3.7, 3.8]
+        node: [3.8]
 
     steps:
       - uses: actions/checkout@v2
