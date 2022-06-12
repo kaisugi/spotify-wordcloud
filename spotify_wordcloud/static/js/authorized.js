@@ -80,6 +80,23 @@ function afterSubmission() {
   saveImageText.innerHTML = '<h3 style="color: black;">保存中...</h3>';
 }
 
+function imageLinkCopy() {
+  fetch("/shareLink", {
+    cache: "no-cache",
+  })
+    .then((res) => {
+      if (res.status !== 200) {
+        throw Error("invalid status");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      navigator.clipboard.writeText(data["link"]).then(
+        success => alert("画像付きリンクをコピーしました。")
+      )
+    });
+}
+
 function logout() {
   var url = "https://accounts.spotify.com/en/logout";
   var spotifyLogoutWindow = window.open(

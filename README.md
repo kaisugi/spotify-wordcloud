@@ -83,6 +83,7 @@ $ TESTING=True python -m pytest
 | /generate                 | GET    | Create a word cloud image and return its binary                                                                               |
 | /regenerate               | GET    | Create a word cloud image and return its binary <br>(Unlike /generate method, it forces re-creation even if there is a cache) |
 | /save                     | POST   | Create a word cloud image, upload the image to GCS, and save it in the DB with user ID and creation date                       |
+| /shareLink                | GET   | Create a word cloud image and obatin the link |
 | /shareTwitter             | POST   | Create a word cloud image and open the tweet screen                                                                                        |
 | /share/:file_hash         | GET    | Entry for Open Graph Protocol |
 | /history                  | GET    | Display the list of images created in the past                                                                                |
