@@ -22,4 +22,10 @@ if not app.config["FLASK_DEBUG"]:
         "style-src https: 'unsafe-inline'; "
         "img-src * blob:;",
     )
+
+    import google.cloud.logging
+
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+
 db = SQLAlchemy(app)

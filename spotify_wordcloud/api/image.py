@@ -27,7 +27,20 @@ gcs = storage.Client()
 app = Blueprint("image", __name__, url_prefix="/")
 
 
+stopwords = ("THE", "The")
+wc_object = WordCloud(
+    font_path=path.join(getcwd(), ".fonts/ipaexg.ttf"),
+    width=1200,
+    height=630,
+    colormap="cool",
+    stopwords=stopwords,
+    regexp=r"\S[\S']+",
+)
+
+
 def text_and_hash_generation(session):
+    logging.info("text_and_hash_generation started")
+
     data = spotify.get("/v1/me/top/artists?limit=50").json()
 
     artists = []
@@ -42,25 +55,23 @@ def text_and_hash_generation(session):
     ha = hashlib.md5(text.encode("utf-8")).hexdigest()
     session["spotify_wordcloud_hash"] = ha  # save hash
 
+    logging.info("text_and_hash_generation ended")
+
 
 def image_generation(text, ha):
-    stopwords = ("THE", "The")
+    logging.info("image_generation started")
 
-    freq = WordCloud(stopwords=stopwords, regexp=r"\S[\S']+").process_text(text)
+    freq = wc_object.process_text(text)
     # force regularize
     for k, v in freq.items():
         if v >= 6:
             freq[k] = 6
-    wc = WordCloud(
-        font_path=path.join(getcwd(), ".fonts/ipaexg.ttf"),
-        width=1200,
-        height=630,
-        colormap="cool",
-        stopwords=stopwords,
-        regexp=r"\S[\S']+",
-    ).generate_from_frequencies(freq)
+    wc = wc_object.generate_from_frequencies(freq)
+
     image = wc.to_image()
     image.save(f"/tmp/{ha}.png", format="png", optimize=True)
+
+    logging.info("image_generation ended")
 
 
 @app.route("/generate")
