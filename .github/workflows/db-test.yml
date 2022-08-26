@@ -39,4 +39,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: database-dump.sql
-        path: path/to/artifact/database-dump.sql
+        path: ./database-dump.sql
