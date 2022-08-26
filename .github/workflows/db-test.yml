@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: DB Access test
+name: DB test
 
 on:
   push:
@@ -11,6 +11,9 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+
+env:
+  database_url: ${{ secrets.DATABASE_URL }}
 
 jobs:
   build:
@@ -25,7 +28,15 @@ jobs:
         node-version: 16.x
         cache: 'npm'
     - run: yarn install
-    - env:
+    - name: DB Access Test
+      env:
         SPOTIFY_USERNAME: ${{ secrets.SPOTIFY_USERNAME }}
         SPOTIFY_PASSWORD: ${{ secrets.SPOTIFY_PASSWORD }}
       run: node scripts/test.js
+
+    - name: DB Backup
+      run: pg_dump ${{ env.database_url }} > database-dump.sql
+    - uses: actions/upload-artifact@v3
+      with:
+        name: database-dump.sql
+        path: path/to/artifact/database-dump.sql
