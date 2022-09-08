@@ -30,3 +30,6 @@ else:
     SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URL")
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+# https://qiita.com/cress_cc/items/7e68e535b405e1bb50a1
+# https://stackoverflow.com/questions/58866560/flask-sqlalchemy-pool-pre-ping-only-working-sometimes
+SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
