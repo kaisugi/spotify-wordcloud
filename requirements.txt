@@ -1,6 +1,6 @@
 blinker==1.4
 Flask==2.0.3
-Flask-Dance==5.0.0
+Flask-Dance==6.1.1
 Flask-SQLAlchemy==2.4.4
 flask-talisman==0.7.0
 Flask-WTF==1.0.1

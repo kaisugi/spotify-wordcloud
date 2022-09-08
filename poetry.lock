@@ -137,19 +137,19 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-dance"
-version = "5.0.0"
+version = "6.1.1"
 description = "Doing the OAuth dance with style using Flask, requests, and oauthlib"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-Flask = ">=1.0.4"
+Flask = ">=2.0.3"
 oauthlib = "*"
 requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 urlobject = "*"
-Werkzeug = "<2.1"
+Werkzeug = "*"
 
 [package.extras]
 signals = ["blinker"]
@@ -908,7 +908,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d56127f3f3c9453862ac88ba0321ae3cdfda590211105e6793003182064d8cc3"
+content-hash = "ff2e1f72f32a07a3f9c11e91e1c2a4c41d96976f5889b9383b9b441a21b90aba"
 
 [metadata.files]
 atomicwrites = [
@@ -979,11 +979,7 @@ flask = [
     {file = "Flask-2.0.3-py3-none-any.whl", hash = "sha256:59da8a3170004800a2837844bfa84d49b022550616070f7cb1a659682b2e7c9f"},
     {file = "Flask-2.0.3.tar.gz", hash = "sha256:e1120c228ca2f553b470df4a5fa927ab66258467526069981b3eb0a91902687d"},
 ]
-flask-dance = [
-    {file = "Flask-Dance-5.0.0.tar.gz", hash = "sha256:4495e5045492dd5bb42d0d26bbef833c861ba28b6d16ebf0bdbb091459dc5e0c"},
-    {file = "Flask_Dance-5.0.0-py2.py3-none-any.whl", hash = "sha256:d3b1d3597512dc0aeae3a0c39c15fe5643fca84b12eef10be6e9894bc13fdef0"},
-    {file = "Flask_Dance-5.0.0-py3.9.egg", hash = "sha256:f0a4a6e9ded71116a91486c333151edf29f5a3946660c6406eb113eafb4207b8"},
-]
+flask-dance = []
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.4.4.tar.gz", hash = "sha256:bfc7150eaf809b1c283879302f04c42791136060c6eeb12c0c6674fb1291fae5"},
     {file = "Flask_SQLAlchemy-2.4.4-py2.py3-none-any.whl", hash = "sha256:05b31d2034dd3f2a685cbbae4cfc4ed906b2a733cff7964ada450fd5e462b84e"},
