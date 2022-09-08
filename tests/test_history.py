@@ -102,7 +102,7 @@ def test_delete(client_with_dummy_file, monkeypatch):
         res2 = client.get("/history", base_url="https://example.com")
 
     assert res1.status_code == 302
-    assert res1.headers["Location"] == "https://example.com/history"
+    assert res1.headers["Location"] == "/history"
 
     assert res2.status_code == 200
     text = res2.get_data(as_text=True)

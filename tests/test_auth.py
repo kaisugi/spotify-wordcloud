@@ -52,7 +52,7 @@ def test_login(monkeypatch):
         res = client.get("/login", base_url="https://example.com")
 
     assert res.status_code == 302
-    assert res.headers["Location"] == "https://example.com/login/spotify"
+    assert res.headers["Location"] == "/login/spotify"
 
 
 # GET /logout
@@ -66,4 +66,4 @@ def test_logout(monkeypatch):
         res = client.get("/logout", base_url="https://example.com")
 
     assert res.status_code == 302
-    assert res.headers["Location"] == "https://example.com/"
+    assert res.headers["Location"] == "/"
