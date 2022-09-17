@@ -8,7 +8,6 @@ authors = ["HelloRusk <hellorusk1998@gmail.com>"]
 python = "^3.8"
 blinker = "1.4"
 Flask = "2.0.3"
-Flask-Dance = "6.1.1"
 Flask-SQLAlchemy = "2.5.1"
 flask-talisman = "0.7.0"
 Flask-WTF = "1.0.1"
@@ -22,6 +21,7 @@ flake8 = "3.8.4"
 pytest = "6.2.1"
 google-cloud-logging = "3.1.2"
 Werkzeug = "2.2.2"
+Flask-Dance = "^6.1.1"
 
 [tool.poetry.dev-dependencies]
 
