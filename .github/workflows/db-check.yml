@@ -1,0 +1,17 @@
+name: DB healthcheck
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: call healthcheck api
+        run: |
+          curl https://spotify-word.cloud/dbcheck
