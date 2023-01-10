@@ -31,12 +31,6 @@ def index():
         return render_template("unauthorized.html")
 
 
-# https://cloud.google.com/appengine/docs/standard/python3/configuring-warmup-requests
-@app.route("/_ah/warmup")
-def warmup():
-    return "", 200, {}
-
-
 @app.route("/login")
 def login():
     return redirect(url_for("spotify.login"))
