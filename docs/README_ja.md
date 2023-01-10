@@ -69,8 +69,6 @@ and open `http://localhost:5000/`.
 $ TESTING=True python -m pytest
 ```
 
-💡 If you'd like to test this project via GitHub Actions, you have to additionally configure `GCP_PROJECT_ID` and `GCP_SA_KEY` in the project secrets. See [this document](https://github.com/google-github-actions/setup-gcloud) for more detail.
-
 ## URL
 
 | パス                      | メソッド | 内容                                                                                                              |
